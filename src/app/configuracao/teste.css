@@ -1,0 +1,16 @@
+.clip-hexagon-left {
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+
+.divCard {
+    clip-path: polygon(
+    0% 16%,   /* ponta do bico */
+    4.5% 8%,  /* topo do bico */
+    4.5% 0%,  /* canto superior esquerdo */
+    100% 0%,  /* canto superior direito */
+    100% 100%,/* canto inferior direito */
+    4.5% 100%,/* canto inferior esquerdo */
+    4.5% 92%, /* base do bico */
+    0% 83%    /* final do bico */
+    );
+}
