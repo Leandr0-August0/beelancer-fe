@@ -1,1 +1,39 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+:root {
+    --color1: #ffc700;
+    --color2: #ffdc62;
+    --color3: #ca9d00;
+    --black: #000000;
+    --white: #ffffff;
+    --light: #f5f5f5;
+    --gray: #808080;
+    --dark-gray: #3f3f3f;
+}
+
+body {
+    @apply w-full min-h-screen flex flex-col;
+}
+
+main {
+    @apply flex flex-col w-full items-center;
+    flex-grow: 1;
+}
+
+/* footer {
+    @apply w-full absolute bottom-0;
+} */
+
+button {
+    border: none;
+    background-color: inherit;
+    filter: saturate(1);
+    box-shadow: 2px 2px 7px 2px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+        filter: blur(0.8px);
+        /* box-shadow: 2px 2px 7px 2px rgba(0, 0, 0, 0.4); */
+    }
+}
