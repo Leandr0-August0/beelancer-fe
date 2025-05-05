@@ -1,8 +1,11 @@
 import "./teste.css";
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 export default function Config() {
     return (
-        <div>
+        <>
+            <Navbar />
             <main className="flex-grow flex flex-col w-full">
                 <div className="self-center text-2xl font-bold mt-10 mb-8">
                     Esta é a página de configuração
@@ -27,6 +30,7 @@ export default function Config() {
                     <div className="divCard w-[400px] h-[110px] bg-blue-500 shadow-lg"></div>
                 </div>
             </main>
-        </div>
+            <Footer />
+        </>
     );
 }

@@ -1,7 +1,14 @@
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+
 export default function Config() {
     return (
-        <div>
-            Esta é a página de conversa
-        </div>
-    )
+        <>
+            <Navbar />
+            <main>
+                <div>Esta é a página de conversa</div>
+            </main>
+            <Footer />
+        </>
+    );
 }
