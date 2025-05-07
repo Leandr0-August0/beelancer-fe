@@ -134,19 +134,22 @@ export default function Home() {
         <>
             <Navbar />
             <main>
-                {publis.map((publi) => {
-                    const imageCount = publi.images.length;
-                    const startIndex = startIndexes[publi.id] || 0;
-                    const hasEnoughImages = imageCount > 2;
-                    const visibleImages = [
-                        publi.images[startIndex],
-                        publi.images[(startIndex + 1) % imageCount],
-                    ];
+                    <div className="flex flex-col w-full h-full gap-8 py-8 overflow-auto">
+                        {/* card de publicação */}
+                    {publis.map((publi) => {
+                        const imageCount = publi.images.length;
+                        const startIndex = startIndexes[publi.id] || 0;
+                        const hasEnoughImages = imageCount > 2;
+                        const visibleImages = [
+                            publi.images[startIndex],
+                            publi.images[(startIndex + 1) % imageCount],
+                        ];
 
-                    return (
-                        <div className="flex flex-col w-[50%] py-8 mx-auto" key={publi.id}>
-                            {/* card de publicação */}
-                            <div className="flex flex-col bg-[#d9d9d9] w-full rounded-lg p-4">
+                        return (
+                            <div
+                                className="flex flex-col bg-[#d9d9d9] w-[50%] rounded-lg p-4 mx-auto"
+                                key={publi.id}
+                            >
                                 <div className="flex flex-row gap-3 items-center mb-2">
                                     <Image
                                         src={'/undefinedPeople.svg'}
@@ -157,25 +160,32 @@ export default function Home() {
                                     <p>{publi.author}</p>
                                 </div>
 
-                                <div className="carrousel flex justify-around mb-2">
+                                <div className="flex mb-2">
                                     <button
                                         onClick={() => handlePrevClick(publi.id, imageCount)}
                                         disabled={!hasEnoughImages}
-                                        className={`h-[40px] w-[40px] rounded-[50%] font-bold text-lg self-center ${
+                                        className={`h-full w-[10%] font-bold text-lg content-center cursor-pointer ${
                                             !hasEnoughImages ? 'opacity-30 cursor-not-allowed' : ''
                                         }`}
                                     >
                                         &lt;
                                     </button>
 
-                                    <div className="carrouselImages flex flex-row  gap-4 w-[80%] ">
+                                    <div className="carrouselImages flex flex-row gap-4 w-[80%] ">
                                         {visibleImages.map((image, index) => (
                                             <div
                                                 key={index}
                                                 className="relative carrousel-item w-[50%] aspect-[4/5] bg-white shadow-2xl flex items-center justify-center "
                                             >
-                                                <Image src={image.photo} fill alt={image.title} className="object-cover place-self-center text-gray-500" />
-                                                <p className="text-xs self-start z-10">{image.title}</p>
+                                                <Image
+                                                    src={image.photo}
+                                                    fill
+                                                    alt={image.title}
+                                                    className="object-cover place-self-center text-gray-500"
+                                                />
+                                                <p className="text-xs self-start z-10">
+                                                    {image.title}
+                                                </p>
                                             </div>
                                         ))}
                                     </div>
@@ -183,7 +193,7 @@ export default function Home() {
                                     <button
                                         onClick={() => handleNextClick(publi.id, imageCount)}
                                         disabled={!hasEnoughImages}
-                                        className={`h-[40px] w-[40px] rounded-[50%] font-bold text-lg self-center ${
+                                        className={`h-full w-[10%] font-bold text-lg self-center cursor-pointer ${
                                             !hasEnoughImages ? 'opacity-30 cursor-not-allowed' : ''
                                         }`}
                                     >
@@ -192,7 +202,7 @@ export default function Home() {
                                 </div>
 
                                 <div
-                                    className={`relative flex flex-col transition-all duration-300 ease-in-out`}
+                                    className={`relative flex flex-col transition-all duration-300 ease-in-out px-15`}
                                 >
                                     <TruncateText
                                         text={publi.text}
@@ -202,9 +212,9 @@ export default function Home() {
                                     />
                                 </div>
                             </div>
-                        </div>
-                    );
-                })}
+                        );
+                    })}
+                </div>
             </main>
             <Footer />
         </>

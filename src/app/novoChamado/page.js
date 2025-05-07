@@ -43,8 +43,8 @@ export default function Config() {
         <>
             <Navbar />
             <main>
-                <div className="flex flex-row gap-20 w-full grow p-8 pb-0">
-                    <div className="flex flex-col w-2/3">
+                <div className="flex flex-row gap-20 w-full max-h-full grow p-8 pb-0">
+                    <div className="grid grid-rows-[fit-content_1fr] max-h-full w-2/3">
                         <div ref={selectRef} className="relative w-full">
                             <button
                                 onClick={() => setSpecialtyIsOpen(!specialtyIsOpen)}
@@ -92,9 +92,99 @@ export default function Config() {
                                 </ul>
                             )}
                         </div>
-                        <div className="w-full h-full">
+                        <div className="resultsCall flex flex-col grow max-h-full w-full pt-6 py-4 pr-2 overflow-y-auto gap-4">
                             {/* cards */}
-                            <div className="flex flex-col gap-4 w-full">
+                            <div className="flex flex-col gap-4 w-full ">
+                                <div className="relative ">
+                                    <div className="absolute z-10 bg-[#ffdc62] w-30 h-30 ml-2 top-[50%] translate-y-[-50%] clipExagon ">
+                                        {/* foto */}
+                                    </div>
+                                    <div className="relative flex flex-row justify-between bg-gray-300 boxShadow px-4 ml-17 pl-20 h-36 items-center rounded-md">
+                                        {/* infos */}
+                                        <div className="flex flex-col  ">
+                                            <p className="text-[20px] font-medium leading-6 ">
+                                                Nome
+                                            </p>
+                                            <p className="text-[16px] font-normal leading-4 ">
+                                                Especialidades
+                                            </p>
+                                            <p className="text-[12px] font-normal leading-4 ">
+                                                Localidade
+                                            </p>
+                                            <p className="text-xl font-medium leading-4 ">★★★★☆</p>
+                                        </div>
+                                        <div className="flex flex-col gap-2">
+                                            <button className="border w-full border-black rounded-md px-4 py-2 font-medium">
+                                                Ver perfil
+                                            </button>
+                                            <button className="border w-full border-black rounded-md px-4 py-2 font-medium">
+                                                Contratar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex flex-col gap-4 w-full ">
+                                <div className="relative ">
+                                    <div className="absolute z-10 bg-[#ffdc62] w-30 h-30 ml-2 top-[50%] translate-y-[-50%] clipExagon ">
+                                        {/* foto */}
+                                    </div>
+                                    <div className="relative flex flex-row justify-between bg-gray-300 boxShadow px-4 ml-17 pl-20 h-36 items-center rounded-md">
+                                        {/* infos */}
+                                        <div className="flex flex-col  ">
+                                            <p className="text-[20px] font-medium leading-6 ">
+                                                Nome
+                                            </p>
+                                            <p className="text-[16px] font-normal leading-4 ">
+                                                Especialidades
+                                            </p>
+                                            <p className="text-[12px] font-normal leading-4 ">
+                                                Localidade
+                                            </p>
+                                            <p className="text-xl font-medium leading-4 ">★★★★☆</p>
+                                        </div>
+                                        <div className="flex flex-col gap-2">
+                                            <button className="border w-full border-black rounded-md px-4 py-2 font-medium">
+                                                Ver perfil
+                                            </button>
+                                            <button className="border w-full border-black rounded-md px-4 py-2 font-medium">
+                                                Contratar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex flex-col gap-4 w-full ">
+                                <div className="relative ">
+                                    <div className="absolute z-10 bg-[#ffdc62] w-30 h-30 ml-2 top-[50%] translate-y-[-50%] clipExagon ">
+                                        {/* foto */}
+                                    </div>
+                                    <div className="relative flex flex-row justify-between bg-gray-300 boxShadow px-4 ml-17 pl-20 h-36 items-center rounded-md">
+                                        {/* infos */}
+                                        <div className="flex flex-col  ">
+                                            <p className="text-[20px] font-medium leading-6 ">
+                                                Nome
+                                            </p>
+                                            <p className="text-[16px] font-normal leading-4 ">
+                                                Especialidades
+                                            </p>
+                                            <p className="text-[12px] font-normal leading-4 ">
+                                                Localidade
+                                            </p>
+                                            <p className="text-xl font-medium leading-4 ">★★★★☆</p>
+                                        </div>
+                                        <div className="flex flex-col gap-2">
+                                            <button className="border w-full border-black rounded-md px-4 py-2 font-medium">
+                                                Ver perfil
+                                            </button>
+                                            <button className="border w-full border-black rounded-md px-4 py-2 font-medium">
+                                                Contratar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex flex-col gap-4 w-full ">
                                 <div className="relative ">
                                     <div className="absolute z-10 bg-[#ffdc62] w-30 h-30 ml-2 top-[50%] translate-y-[-50%] clipExagon ">
                                         {/* foto */}
