@@ -1,7 +1,9 @@
 'use client';
 
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import Navbar from '@/components/navbar';
+import Footer from '@/components/footer';
+import Card from '@/components/card';
+
 import { useState, useEffect, useRef } from 'react';
 
 export default function Config() {
@@ -43,14 +45,14 @@ export default function Config() {
         <>
             <Navbar />
             <main>
-                <div className="flex flex-row gap-20 w-full max-h-full grow p-8 pb-0">
-                    <div className="grid grid-rows-[fit-content_1fr] max-h-full w-2/3">
-                        <div ref={selectRef} className="relative w-full">
+                <div className="flex flex-row justify-between w-full">
+                    <div className="flex basis-54/100 flex-col pl-45">
+                        <div ref={selectRef} className="relative w-full pl-13">
                             <button
                                 onClick={() => setSpecialtyIsOpen(!specialtyIsOpen)}
                                 className="w-full bg-white font-medium pl-4 pr-10 py-2 text-left cursor-pointer"
                             >
-                                Qual o tipo de profissional que você procura?
+                                <p className='text-[27px]'> Qual o tipo de profissional que você procura?</p>
                                 {!specialtyIsOpen && (
                                     <span className="absolute right-3 top-2.5 text-gray-500">
                                         ▼
@@ -62,7 +64,6 @@ export default function Config() {
                                     </span>
                                 )}
                             </button>
-
                             {specialtyIsOpen && (
                                 <ul className="absolute z-100 mt-1 w-full bg-white border border-gray-300 divide-y divide-gray-300 rounded-md shadow-lg">
                                     {selectedSpecialty && (
@@ -91,134 +92,14 @@ export default function Config() {
                                     ))}
                                 </ul>
                             )}
-                        </div>
-                        <div className="resultsCall flex flex-col grow max-h-full w-full pt-6 py-4 pr-2 overflow-y-auto gap-4">
-                            {/* cards */}
-                            <div className="flex flex-col gap-4 w-full ">
-                                <div className="relative ">
-                                    <div className="absolute z-10 bg-[#ffdc62] w-30 h-30 ml-2 top-[50%] translate-y-[-50%] clipExagon ">
-                                        {/* foto */}
-                                    </div>
-                                    <div className="relative flex flex-row justify-between bg-gray-300 boxShadow px-4 ml-17 pl-20 h-36 items-center rounded-md">
-                                        {/* infos */}
-                                        <div className="flex flex-col  ">
-                                            <p className="text-[20px] font-medium leading-6 ">
-                                                Nome
-                                            </p>
-                                            <p className="text-[16px] font-normal leading-4 ">
-                                                Especialidades
-                                            </p>
-                                            <p className="text-[12px] font-normal leading-4 ">
-                                                Localidade
-                                            </p>
-                                            <p className="text-xl font-medium leading-4 ">★★★★☆</p>
-                                        </div>
-                                        <div className="flex flex-col gap-2">
-                                            <button className="border w-full border-black rounded-md px-4 py-2 font-medium">
-                                                Ver perfil
-                                            </button>
-                                            <button className="border w-full border-black rounded-md px-4 py-2 font-medium">
-                                                Contratar
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="flex flex-col gap-4 w-full ">
-                                <div className="relative ">
-                                    <div className="absolute z-10 bg-[#ffdc62] w-30 h-30 ml-2 top-[50%] translate-y-[-50%] clipExagon ">
-                                        {/* foto */}
-                                    </div>
-                                    <div className="relative flex flex-row justify-between bg-gray-300 boxShadow px-4 ml-17 pl-20 h-36 items-center rounded-md">
-                                        {/* infos */}
-                                        <div className="flex flex-col  ">
-                                            <p className="text-[20px] font-medium leading-6 ">
-                                                Nome
-                                            </p>
-                                            <p className="text-[16px] font-normal leading-4 ">
-                                                Especialidades
-                                            </p>
-                                            <p className="text-[12px] font-normal leading-4 ">
-                                                Localidade
-                                            </p>
-                                            <p className="text-xl font-medium leading-4 ">★★★★☆</p>
-                                        </div>
-                                        <div className="flex flex-col gap-2">
-                                            <button className="border w-full border-black rounded-md px-4 py-2 font-medium">
-                                                Ver perfil
-                                            </button>
-                                            <button className="border w-full border-black rounded-md px-4 py-2 font-medium">
-                                                Contratar
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="flex flex-col gap-4 w-full ">
-                                <div className="relative ">
-                                    <div className="absolute z-10 bg-[#ffdc62] w-30 h-30 ml-2 top-[50%] translate-y-[-50%] clipExagon ">
-                                        {/* foto */}
-                                    </div>
-                                    <div className="relative flex flex-row justify-between bg-gray-300 boxShadow px-4 ml-17 pl-20 h-36 items-center rounded-md">
-                                        {/* infos */}
-                                        <div className="flex flex-col  ">
-                                            <p className="text-[20px] font-medium leading-6 ">
-                                                Nome
-                                            </p>
-                                            <p className="text-[16px] font-normal leading-4 ">
-                                                Especialidades
-                                            </p>
-                                            <p className="text-[12px] font-normal leading-4 ">
-                                                Localidade
-                                            </p>
-                                            <p className="text-xl font-medium leading-4 ">★★★★☆</p>
-                                        </div>
-                                        <div className="flex flex-col gap-2">
-                                            <button className="border w-full border-black rounded-md px-4 py-2 font-medium">
-                                                Ver perfil
-                                            </button>
-                                            <button className="border w-full border-black rounded-md px-4 py-2 font-medium">
-                                                Contratar
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="flex flex-col gap-4 w-full ">
-                                <div className="relative ">
-                                    <div className="absolute z-10 bg-[#ffdc62] w-30 h-30 ml-2 top-[50%] translate-y-[-50%] clipExagon ">
-                                        {/* foto */}
-                                    </div>
-                                    <div className="relative flex flex-row justify-between bg-gray-300 boxShadow px-4 ml-17 pl-20 h-36 items-center rounded-md">
-                                        {/* infos */}
-                                        <div className="flex flex-col  ">
-                                            <p className="text-[20px] font-medium leading-6 ">
-                                                Nome
-                                            </p>
-                                            <p className="text-[16px] font-normal leading-4 ">
-                                                Especialidades
-                                            </p>
-                                            <p className="text-[12px] font-normal leading-4 ">
-                                                Localidade
-                                            </p>
-                                            <p className="text-xl font-medium leading-4 ">★★★★☆</p>
-                                        </div>
-                                        <div className="flex flex-col gap-2">
-                                            <button className="border w-full border-black rounded-md px-4 py-2 font-medium">
-                                                Ver perfil
-                                            </button>
-                                            <button className="border w-full border-black rounded-md px-4 py-2 font-medium">
-                                                Contratar
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="flex flex-col w-1/3 ">
-                        <div ref={starRef} className="relative w-full">
+                        </div>  
+                        <Card></Card>
+                        <Card></Card>
+                        <Card></Card>
+                        <Card></Card>
+                    </div>  
+                    <div className="flex basis-35/100 flex-col px-15">
+                        <div ref={starRef} className="relative w-full text-[20px]">
                             <button
                                 onClick={() => setStarIsOpen(!starIsOpen)}
                                 className="w-full bg-white font-medium pl-4 pr-10 py-2 text-left cursor-pointer"
@@ -235,7 +116,6 @@ export default function Config() {
                                     </span>
                                 )}
                             </button>
-
                             {starIsOpen && (
                                 <ul className="absolute z-100 mt-1 w-full bg-white border border-gray-300 divide-y divide-gray-300 rounded-md shadow-lg">
                                     {selectedStar && (
@@ -267,7 +147,7 @@ export default function Config() {
                         </div>
                         <div className="w-full">
                             <div className="flex flex-row mt-4 pl-4 py-2 w-full">
-                                <label htmlFor="distance" className="font-medium ">
+                                <label htmlFor="distance" className="font-medium text-[20px] ">
                                     Proximidade
                                 </label>
                                 <input
@@ -285,7 +165,7 @@ export default function Config() {
                                     className="mapDistance grid border border-gray-300 rounded-md w-full h-50 bg-green-200"
                                     id="map"
                                 >
-                                    <div className="absolute w-25 h-25 rounded-full place-self-center border border-[#8ed5ff] bg-[#8ed5ff66] "></div>
+                                    <div className="sticky w-25 h-25 rounded-full place-self-center border border-[#8ed5ff] bg-[#8ed5ff66] "></div>
                                 </div>
                             </div>
                         </div>
