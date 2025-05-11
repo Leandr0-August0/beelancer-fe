@@ -134,8 +134,8 @@ export default function Home() {
         <>
             <Navbar />
             <main>
-                    <div className="flex flex-col w-full h-full gap-8 py-8 overflow-auto">
-                        {/* card de publicação */}
+                <div className="flex flex-col w-full h-full gap-8 py-8 overflow-auto">
+                    {/* card de publicação */}
                     {publis.map((publi) => {
                         const imageCount = publi.images.length;
                         const startIndex = startIndexes[publi.id] || 0;

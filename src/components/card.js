@@ -3,10 +3,10 @@ import { Main } from "next/document"
 export default function Card(){
     return(
         <div className="relative pb-7 ">
-            <div className="absolute z-10 bg-[#ffdc62] w-30 h-33 left-[4%] top-[45%] translate-y-[-50%] clipExagon ">
+            <div className="absolute z-10 bg-[#ffdc62] w-30 h-33 top-[45%] translate-y-[-50%] clipExagon ">
                 {/* foto */}
             </div>
-            <div className="relative flex flex-row justify-between bg-gray-50 px-4 ml-17 pl-28 h-44  items-center rounded-md border border-gray-300 ">
+            <div className="relative flex flex-row justify-between bg-gray-50 px-4 ml-12 pl-28 h-44  items-center rounded-md border border-gray-300 ">
                 {/* infos */}
                 <div className="flex flex-col  ">
                     <p className="text-[27px] font-medium leading-6 ">

@@ -45,14 +45,17 @@ export default function Config() {
         <>
             <Navbar />
             <main>
-                <div className="flex flex-row justify-between w-full">
+                <div className="flex flex-row justify-between w-full max-h-full">
                     <div className="flex basis-54/100 flex-col pl-45">
                         <div ref={selectRef} className="relative w-full pl-13">
                             <button
                                 onClick={() => setSpecialtyIsOpen(!specialtyIsOpen)}
                                 className="w-full bg-white font-medium pl-4 pr-10 py-2 text-left cursor-pointer"
                             >
-                                <p className='text-[27px]'> Qual o tipo de profissional que você procura?</p>
+                                <p className="text-[27px]">
+                                    {' '}
+                                    Qual o tipo de profissional que você procura?
+                                </p>
                                 {!specialtyIsOpen && (
                                     <span className="absolute right-3 top-2.5 text-gray-500">
                                         ▼
@@ -92,12 +95,17 @@ export default function Config() {
                                     ))}
                                 </ul>
                             )}
-                        </div>  
-                        <Card></Card>
-                        <Card></Card>
-                        <Card></Card>
-                        <Card></Card>
-                    </div>  
+                        </div>
+                        <div className="selfScroll">
+                            <Card />
+                            <Card />
+                            <Card />
+                            <Card />
+                            <Card />
+                            <Card />
+                            <Card />
+                        </div>
+                    </div>
                     <div className="flex basis-35/100 flex-col px-15">
                         <div ref={starRef} className="relative w-full text-[20px]">
                             <button
@@ -160,9 +168,9 @@ export default function Config() {
                                 />
                                 <span>km</span>
                             </div>
-                            <div className="flex flex-row mt-4 gap-4 py-2 w-full">
+                            <div className="flex flex-row mt-4 gap-4 py-2 w-full aspect-video">
                                 <div
-                                    className="mapDistance grid border border-gray-300 rounded-md w-full h-50 bg-green-200"
+                                    className="mapDistance grid border border-gray-300 rounded-md w-full bg-green-200"
                                     id="map"
                                 >
                                     <div className="sticky w-25 h-25 rounded-full place-self-center border border-[#8ed5ff] bg-[#8ed5ff66] "></div>

@@ -20,7 +20,7 @@ main {
 }
 
 footer {
-    @apply w-full ;
+    @apply w-full;
 }
 
 .button {
@@ -51,9 +51,10 @@ footer {
     box-shadow: 2px 2px 7px 2px rgba(0, 0, 0, 0.1);
 }
 
-.resultsCall {
+.selfScroll {
     overflow-y: auto;
     overflow-x: hidden;
-    scrollbar-width: none;
-
+    scrollbar-width: thin;
+    scrollbar-color: var(--color2) var(--white);
+    @aplly flex flex-col grow max-h-full pt-6 py-4 pr-4 overflow-y-auto gap-4;
 }

@@ -2,16 +2,16 @@ import * as React from "react";
 
 function ProfileHeader() {
   return (
-    <header className="max-md:max-w-full">
-      <div className="flex gap-5 max-md:flex-col">
-        <figure className="w-[41%] max-md:ml-0 max-md:w-full">
+    <header className="w-full">
+      <div className="flex gap-5 max-md:flex-col ml-3 content-center justify-items-center">
+        <figure className="w- max-md:w-full">
           <img
             src="https://cdn.builder.io/api/v1/image/assets/7ee687050c0e447c8632baa860595daf/6b0881b03e78600af03acccc8165c9ad8d7e2bfa?placeholderIfAbsent=true"
             alt="Profile picture of Edivaldo"
-            className="object-contain shrink-0 max-w-full aspect-square rounded-[400px] w-[180px] max-md:mt-6"
+            className="object-contain shrink-0 max-w-full aspect-square rounded-[50%] w-[15rem] max-md:mt-6"
           />
         </figure>
-        <div className="ml-5 w-[59%] max-md:ml-0 max-md:w-full">
+        <div className="ml-5 w-full max-md:ml-0 ">
           <div className="mt-16 text-6xl font-medium leading-none text-black whitespace-nowrap max-md:mt-10 max-md:text-4xl">
             <h1 className="max-md:text-4xl">
               Edivaldo
