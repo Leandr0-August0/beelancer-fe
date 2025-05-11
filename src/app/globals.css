@@ -12,6 +12,7 @@
 }
 
 body {
+    font-size: clamp(1rem, 1vw + 0.5rem, 2rem); 
     @apply w-full h-screen flex flex-col;
 }
 
@@ -57,4 +58,21 @@ footer {
     scrollbar-width: thin;
     scrollbar-color: var(--color2) var(--white);
     @aplly flex flex-col grow max-h-full pt-6 py-4 pr-4 overflow-y-auto gap-4;
+}
+
+.bgModal {
+    @apply absolute w-full h-full grid place-items-center inset-0 bg-[#00000080] z-1000 backdrop-blur-[5px] ;
+}
+
+.modal5050 {
+    @apply absolute w-1/2 h-4/5 bg-white rounded-xl shadow-lg;
+
+}
+
+/* .closeModalButton {
+    @apply absolute top-2 right-2 bg-white rounded-full p-1 shadow-lg;
+} */
+
+.hidden {
+    display: none;
 }

@@ -3,6 +3,7 @@
 import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
 import Card from '@/components/card';
+import StartCallWithFreelancer from '@/components/startCallWithFreelancer';
 
 import { useState, useEffect, useRef } from 'react';
 
@@ -24,6 +25,8 @@ export default function Config() {
     const [selectedStar, setSelectedStar] = useState('');
     const starRef = useRef(null);
     const starOptions = ['★☆☆☆☆', '★★☆☆☆', '★★★☆☆', '★★★★☆', '★★★★★'];
+
+    const [selectedFreelancer, setSelectedFreelancer] = useState(1);
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -97,13 +100,14 @@ export default function Config() {
                             )}
                         </div>
                         <div className="selfScroll">
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
-                            <Card />
+                            <Card selectFreelancer={(id) => setSelectedFreelancer(id)} />
+                            <Card selectFreelancer={(id) => setSelectedFreelancer(id)} />
+                            <Card selectFreelancer={(id) => setSelectedFreelancer(id)} />
+                            <Card selectFreelancer={(id) => setSelectedFreelancer(id)} />
+                            <Card selectFreelancer={(id) => setSelectedFreelancer(id)} />
+                            <Card selectFreelancer={(id) => setSelectedFreelancer(id)} />
+                            <Card selectFreelancer={(id) => setSelectedFreelancer(id)} />
+                            <Card selectFreelancer={(id) => setSelectedFreelancer(id)} />
                         </div>
                     </div>
                     <div className="flex basis-35/100 flex-col px-15">
@@ -181,6 +185,7 @@ export default function Config() {
                 </div>
             </main>
             <Footer />
+            <StartCallWithFreelancer open={selectedFreelancer} onClose={() => setSelectedFreelancer(null)} />
         </>
     );
 }
