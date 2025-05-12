@@ -11,9 +11,9 @@ function ProfileHeader() {
             className="object-contain shrink-0 max-w-full aspect-square rounded-[50%] w-[15rem] max-md:mt-6"
           />
         </figure>
-        <div className="ml-5 w-full max-md:ml-0 ">
+        <div className="w-[50%] max-md:ml-0 max-md:w-full">
           <div className="mt-16 text-6xl font-medium leading-none text-black whitespace-nowrap max-md:mt-10 max-md:text-4xl">
-            <h1 className="max-md:text-4xl">
+            <h1 className="max-md:text-2xl">
               Edivaldo
             </h1>
             <img
