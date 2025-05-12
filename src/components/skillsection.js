@@ -6,7 +6,7 @@ function SkillsSection() {
       <h2 className="text-4xl font-medium leading-none text-left">
         Habilidades
       </h2>
-      <ul className="mt-1.5 text-2xl leading-10 list-disc px-7">
+      <ul className="mt-1.5 text-2xl leading-10 list-disc px-10">
         <li>Revestimentos</li>
         <li>Acabamentos</li>
       </ul>

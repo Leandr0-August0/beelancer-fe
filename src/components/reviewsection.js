@@ -3,8 +3,8 @@ import ReviewItem from "./reviewItem";
 
 function ReviewSection() {
   return (
-    <section className="mt-6 ml-3 w-full font-medium text-black max-w-[723px] max-md:max-w-full">
-      <h2 className="text-4xl leading-none">
+    <section className="mt-6 ml-9 w-full  text-black max-w-[723px] max-md:max-w-full">
+      <h2 className="text-4xl leading-none font-medium">
         Avaliações
       </h2>
       <div className="flex flex-col items-start mt-5 w-full max-w-[722px] max-md:max-w-full">

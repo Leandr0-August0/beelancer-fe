@@ -1,5 +1,4 @@
 'use client';
-
 import Image from 'next/image';
 import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
@@ -7,6 +6,7 @@ import { useState, useEffect, useRef } from 'react';
 import TruncateText from '@/components/TruncateText';
 
 const publis = [
+    
     {
         id: 1,
         author: 'Joaquim',
@@ -15,7 +15,7 @@ const publis = [
             { photo: '/assentamento2.jpg', title: 'Metade do piso concluído' },
             { photo: '/assentamento3.jpg', title: 'Resultado final com rodapé embutido' },
         ],
-        text: 'Hoje concluí o assentamento de piso porcelanato na cozinha da cliente. Nivelamento perfeito e acabamento com rodapé embutido. Cliente gostou do meu trabalho e me recomendaram para outros projetos! Hoje concluí o assentamento de piso porcelanato na cozinha da cliente. Nivelamento perfeito e acabamento com rodapé embutido. Cliente gostou do meu trabalho e me recomendaram para outros projetos!',
+        text: 'Hoje concluí o assentamento de piso porcelanato na cozinha da cliente. Nivelamento perfeito e acabamento com rodapé embutido. Cliente gostou do meu trabalho e me recomendaram para outros projetos!',
     },
     {
         id: 2,
@@ -135,7 +135,7 @@ export default function Home() {
             <Navbar />
             <main>
                 <div className="flex flex-col w-full h-full gap-8 py-8 overflow-auto">
-                    {/* card de publicação */}
+                        {/* card de publicação */}
                     {publis.map((publi) => {
                         const imageCount = publi.images.length;
                         const startIndex = startIndexes[publi.id] || 0;
@@ -147,19 +147,28 @@ export default function Home() {
 
                         return (
                             <div
-                                className="flex flex-col bg-[#d9d9d9] w-[50%] rounded-lg p-4 mx-auto"
+                                className="flex flex-col bg-[rgba(239,239,239,1)] w-[38%] rounded-lg p-4 mx-auto"
                                 key={publi.id}
                             >
-                                <div className="flex flex-row gap-3 items-center mb-2">
+                                <div className="flex flex-row gap-3 items-center mb-2 text-3xl font-medium pl-15 pb-3">
                                     <Image
                                         src={'/undefinedPeople.svg'}
-                                        width={40}
-                                        height={40}
+                                        width={50}
+                                        height={50}
                                         alt="avatar"
                                     />
                                     <p>{publi.author}</p>
                                 </div>
-
+                                <div
+                                    className={`relative flex flex-col transition-all duration-300 ease-in-out px-16 py-4`}
+                                >
+                                    <TruncateText
+                                        text={publi.text}
+                                        maxLines={3}
+                                        classText={`text-md`}
+                                        classToggle={`text-sm`}
+                                    />
+                                </div>
                                 <div className="flex mb-2">
                                     <button
                                         onClick={() => handlePrevClick(publi.id, imageCount)}
@@ -175,7 +184,7 @@ export default function Home() {
                                         {visibleImages.map((image, index) => (
                                             <div
                                                 key={index}
-                                                className="relative carrousel-item w-[50%] aspect-[4/5] bg-white shadow-2xl flex items-center justify-center "
+                                                className="relative carrousel-item w-[50%] aspect-[4/5] bg-white flex items-center justify-center "
                                             >
                                                 <Image
                                                     src={image.photo}
@@ -200,16 +209,19 @@ export default function Home() {
                                         &gt;
                                     </button>
                                 </div>
-
-                                <div
-                                    className={`relative flex flex-col transition-all duration-300 ease-in-out px-15`}
-                                >
-                                    <TruncateText
-                                        text={publi.text}
-                                        maxLines={3}
-                                        classText={`text-md`}
-                                        classToggle={`text-sm`}
-                                    />
+                                <div className="relative flex flex-row px-17 justify-between py-4">
+                                    <div className="flex items-stretch gap-3.5 text-2xl font-medium leading-none">
+                                        <img
+                                        src="https://cdn.builder.io/api/v1/image/assets/7ee687050c0e447c8632baa860595daf/936a6a8d29b4ade7fd57bf4e6e384aee8a9b4d1d?placeholderIfAbsent=true"
+                                        className="aspect-[1.07] object-contain w-[29px] shrink-0"
+                                        />
+                                        <div className="my-auto">
+                                        70 likes
+                                        </div>
+                                    </div>
+                                    <div className="text-xl font-normal leading-none">
+                                        05/06
+                                    </div>
                                 </div>
                             </div>
                         );
