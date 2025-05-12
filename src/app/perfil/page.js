@@ -61,6 +61,7 @@ export default function Config() {
         
         <>
             <Navbar />
+            <main>
                 <div className="flex flex-row w-full pt-12">
                     <div className="flex basis-7/10 flex-col pl-50">
                         <article className="flex flex-col items-start rounded-none">

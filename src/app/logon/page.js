@@ -21,7 +21,7 @@ export default function Form() {
                 <label className="block text-gray-700 font-medium mb-1">Confirmar Senha</label>
                 <input type="password" className=" px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-100"/>
               </div>
-              <div className="flex flex-row space-between gap-50 mt-3">
+              <div className="flex flex-row space-between gap-15 mt-3">
                 <label className="text-gray-700 font-medium ">Sou Prestador de Serviço</label>
                 <div class="">
                     <input id="person-4" name="person-4" type="checkbox" class="el ey aae agg ahh aif aoi bsb bsf bsj bsk cbw cby ccf ccr ccu cdb eim"></input>
