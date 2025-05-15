@@ -3,26 +3,27 @@ import * as React from "react";
 function ProfileHeader() {
   return (
     <header className="w-full">
-      <div className="flex gap-5 max-md:flex-col ml-3 content-center justify-items-center">
-        <figure className="w- max-md:w-full">
+      <div className="flex flex-row items-center gap-4">
           <img
             src="https://cdn.builder.io/api/v1/image/assets/7ee687050c0e447c8632baa860595daf/6b0881b03e78600af03acccc8165c9ad8d7e2bfa?placeholderIfAbsent=true"
             alt="Profile picture of Edivaldo"
-            className="object-contain shrink-0 max-w-full aspect-square rounded-[50%] w-[15rem] max-md:mt-6"
+            className="object-contain shrink-0 max-w-full aspect-square rounded-[50%] w-[13rem] max-md:mt-6"
           />
-        </figure>
-        <div className="w-[50%] max-md:ml-0 max-md:w-full">
-          <div className="mt-16 text-6xl font-medium leading-none text-black whitespace-nowrap max-md:mt-10 max-md:text-4xl">
-            <h1 className="max-md:text-2xl">
-              Edivaldo
-            </h1>
-            <img
-              src="https://cdn.builder.io/api/v1/image/assets/7ee687050c0e447c8632baa860595daf/0c67570d85f54bff849a197f2133de8414af7ebe?placeholderIfAbsent=true"
-              alt="Decorative underline"
-              className="object-contain mt-4 w-56 max-w-full aspect-[6.21]"
-            />
+          <div className="flex flex-col ">
+            <div className="flex flex-row place-items-baseline gap-3">
+              <h1 className="text-[180%] font-semibold">
+                Edivaldo
+              </h1>
+              <p className="text-[100%] text-gray-900">Registro,SP</p>
+            </div>
+              <img
+                  src="https://cdn.discordapp.com/attachments/1062543980098748437/1372287827919765634/Group_16.png?ex=68263a22&is=6824e8a2&hm=c765a117619142aa23b2b27757d9501e5c58cb03a262f2feb9e368fa4012a53e&"
+                  alt="Decorative underline"
+                  className="w-40"
+              />
           </div>
-        </div>
+          <div className="flex flex-col gap-0">
+          </div>
       </div>
     </header>
   );

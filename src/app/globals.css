@@ -65,7 +65,7 @@ footer {
 }
 
 .modal5050 {
-    @apply absolute w-1/2 h-4/5 bg-white rounded-xl shadow-lg;
+    @apply absolute w-1/3 h-4/5 bg-white rounded-xl shadow-lg;
 
 }
 
