@@ -26,7 +26,7 @@ export default function Config() {
     const starRef = useRef(null);
     const starOptions = ['★☆☆☆☆', '★★☆☆☆', '★★★☆☆', '★★★★☆', '★★★★★'];
 
-    const [selectedFreelancer, setSelectedFreelancer] = useState(1);
+    const [selectedFreelancer, setSelectedFreelancer] = useState(null);
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -185,7 +185,10 @@ export default function Config() {
                 </div>
             </main>
             <Footer />
-            <StartCallWithFreelancer open={selectedFreelancer} onClose={() => setSelectedFreelancer(null)} />
+            <StartCallWithFreelancer 
+                open={selectedFreelancer} 
+                onClose={() => setSelectedFreelancer(null)} 
+            />
         </>
     );
 }
