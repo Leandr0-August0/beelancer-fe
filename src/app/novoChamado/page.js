@@ -26,7 +26,7 @@ export default function Config() {
     const starRef = useRef(null);
     const starOptions = ['★☆☆☆☆', '★★☆☆☆', '★★★☆☆', '★★★★☆', '★★★★★'];
 
-    const [selectedFreelancer, setSelectedFreelancer] = useState(1);
+    const [selectedFreelancer, setSelectedFreelancer] = useState(null);
 
     useEffect(() => {
         function handleClickOutside(event) {
