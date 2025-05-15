@@ -14,6 +14,13 @@ pnpm dev
 bun dev
 ```
 
+Create a file for environments variables called .env and type:
+```
+NEXT_PUBLIC_API_URL=<apiUrl>
+```
+replace `<apiUrl>` with the api url <br/>
+oficil api url: `https://beelancer-be.onrender.com`
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
