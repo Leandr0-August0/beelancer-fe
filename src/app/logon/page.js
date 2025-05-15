@@ -23,13 +23,13 @@ export default function Form() {
               </div>
               <div className="flex flex-row space-between gap-15 mt-3">
                 <label className="text-gray-700 font-medium ">Sou Prestador de Serviço</label>
-                <div className="">
-                    <input id="person-4" name="person-4" type="checkbox" class="el ey aae agg ahh aif aoi bsb bsf bsj bsk cbw cby ccf ccr ccu cdb eim"></input>
+                <div >
+                    <input id="person-4" name="person-4" type="checkbox"></input>
                 </div>
               </div>
-                <Link href={'/login'} className=" flex items-center justify-center pt-5">
+                <Link href={'/logonAdress'} className=" flex items-center justify-center pt-5">
                   <button className=" overflow-hidden py-5 rounded-[25px] border-[rgba(174,174,174,1)] border-solid border-2 text-2xl text-black font-medium leading-none w-100">
-                      Cadastrar
+                      Próximo
                   </button>
                 </Link>
               </div>

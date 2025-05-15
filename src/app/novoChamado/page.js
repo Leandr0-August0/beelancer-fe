@@ -185,7 +185,10 @@ export default function Config() {
                 </div>
             </main>
             <Footer />
-            <StartCallWithFreelancer open={selectedFreelancer} onClose={() => setSelectedFreelancer(null)} />
+            <StartCallWithFreelancer 
+                open={selectedFreelancer} 
+                onClose={() => setSelectedFreelancer(null)} 
+            />
         </>
     );
 }
