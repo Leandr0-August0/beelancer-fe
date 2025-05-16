@@ -12,7 +12,7 @@ export default function Form() {
 
     const [isProvider, setIsProvider] = useState(false);
     const [userExists, setUserExists] = useState(false);
-    const [passwordMatch, setPasswordMatch] = useState(false);
+    const [passwordMatch, setPasswordMatch] = useState(true);
     const router = useRouter();
 
     const handleCheckEmail = async (email) => {
@@ -31,28 +31,25 @@ export default function Form() {
         }
     };
 
-    const handleComparePassword = async (password, confirmPassword) => {
-        if (password == confirmPassword) {
-            setPasswordMatch(true);
-        }
-    };
-
     const handleSubmit = async () => {
         try {
-            localStorage.setItem('freelancer', isProvider);
-            const response = await axios.post(`${apiUrl}/users`, {
+            localStorage.setItem('isProvider', isProvider);
+            const response = await axios.post(`${apiUrl}/user`, {
                 nome,
                 email,
                 password,
+                image_URL: '',
             });
             console.log(response.data);
+            const userId = response.data.createdUser._id;
+            localStorage.setItem('userId', userId);
             if (response.status === 201) {
                 alert('Usuário cadastrado com sucesso!');
                 router.push('/logonAdress');
             }
         } catch (error) {
             console.log(error);
-            alert(`Erro ao cadastrar usuário: ${error}`);
+            alert(`Erro ao cadastrar usuário: \n${error}`);
         }
     };
 
@@ -78,13 +75,11 @@ export default function Form() {
                             className="w-100 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             onChange={(e) => setNome(e.target.value)}
                             value={nome}
+                            required
                         />
-                        <p className={`text-red-500 text-[80%] ${userExists ? 'block' : 'hidden'}`}>
-                            Email ja cadastrado!
-                        </p>
                     </div>
                     <div>
-                        <label className="block text-gray-700 font-medium mb-1">E-mail</label>
+                        <label className="block text-gray-700 font-medium mb-1">Email</label>
                         <input
                             type="email"
                             className="w-100 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -94,9 +89,10 @@ export default function Form() {
                             }}
                             value={email}
                             onBlur={() => handleCheckEmail(email)}
+                            required
                         />
-                        <p className={`text-red-500 text-[80%] ${userExists ? 'block' : 'hidden'}`}>
-                            Email ja cadastrado!
+                        <p className={`text-red-500 text-[70%] ${userExists ? 'block' : 'hidden'}`}>
+                            Email já cadastrado!
                         </p>
                     </div>
                     <div>
@@ -106,9 +102,10 @@ export default function Form() {
                             className=" px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-100"
                             onChange={(e) => {
                                 setPassword(e.target.value);
-                                setPasswordMatch(false);
+                                setPasswordMatch(true);
                             }}
                             value={password}
+                            required
                         />
                     </div>
                     <div>
@@ -120,11 +117,12 @@ export default function Form() {
                             className=" px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-100"
                             onChange={(e) => {
                                 setConfirmPassword(e.target.value);
-                                setPasswordMatch(false);
+                                setPasswordMatch(true);
                             }}
                             value={confirmPassword}
+                            required
                         />
-                        <p className={`text-red-500 text-[80%] ${!passwordMatch && 'hidden'}`}>
+                        <p className={`text-red-500 text-[80%] ${passwordMatch && 'hidden'}`}>
                             As senhas devem ser iguais!
                         </p>
                     </div>
@@ -141,34 +139,41 @@ export default function Form() {
                             ></input>
                         </div>
                     </div>
-                    {/* <Link href={'/logonAdress'} className=" flex items-center justify-center pt-5"> */}
-                    <button
-                        className=" overflow-hidden py-5 rounded-[25px] border-[rgba(174,174,174,1)] border-solid border-2 text-2xl text-black font-medium leading-none w-100"
-                        onClick={async () => {
-                            try {
-                                await handleComparePassword(password, confirmPassword);
-                                alert(
-                                    `nome: ${nome} \nemail: ${email} \npassword: ${password} \nisProvider: ${isProvider} \npasswordMatch: ${passwordMatch} \nuserExists: ${userExists}`
-                                );
-                                if (
-                                    name != '' &&
-                                    email != '' &&
-                                    password != '' &&
-                                    passwordMatch === true &&
-                                    userExists === false
-                                ) {
-                                    await handleSubmit();
-                                } else {
-                                    alert('Preencha todos os campos corretamente!');
+                    <div className=" flex flex-col items-center justify-center pt-5">
+                        <button
+                            className=" overflow-hidden py-5 rounded-[25px] border-[rgba(174,174,174,1)] border-solid border-2 text-2xl text-black font-medium leading-none w-100"
+                            onClick={async () => {
+                                try {
+                                    if (password !== confirmPassword) {
+                                        setPasswordMatch(false);
+                                        alert('As senhas devem ser iguais.');
+                                    } else {
+                                        setPasswordMatch(true);
+                                        if (
+                                            nome &&
+                                            email &&
+                                            password &&
+                                            passwordMatch &&
+                                            !userExists
+                                        ) {
+                                            await handleSubmit();
+                                        } else {
+                                            alert('Preencha todos os campos corretamente!');
+                                        }
+                                    }
+                                } catch (error) {
+                                    console.log(error);
                                 }
-                            } catch (error) {
-                                console.log(error);
-                            }
-                        }}
-                    >
-                        Próximo
-                    </button>
-                    {/* </Link> */}
+                            }}
+                        >
+                            Próximo
+                        </button>
+                        <div className=" flex items-center justify-center pb-4 pt-5">
+                            <a href="/login" className="grid place-items-center overflow-hidden py-5 rounded-[25px] border-[rgba(174,174,174,1)] border-solid border-2 text-2xl text-black font-medium leading-none w-100">
+                                Entrar
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>
