@@ -4,22 +4,17 @@ import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
 import Card from '@/components/card';
 import StartCallWithFreelancer from '@/components/startCallWithFreelancer';
+import axios from 'axios';
 
 import { useState, useEffect, useRef } from 'react';
 
 export default function Config() {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    const [freelancers, setFreelancers] = useState([]);
     const [specialtyIsOpen, setSpecialtyIsOpen] = useState(false);
     const [selectedSpecialty, setSelectedSpecialty] = useState('');
     const selectRef = useRef(null);
-    const specialtyOptions = [
-        'Eletricista',
-        'Encanador',
-        'Pedreiro',
-        'Gesseiro',
-        'Pintor',
-        'Mecânico',
-        'Jardineiro',
-    ];
+    const [specialtyOptions, setSpecialtyOptions] = useState([]);
 
     const [starIsOpen, setStarIsOpen] = useState(false);
     const [selectedStar, setSelectedStar] = useState('');
@@ -28,7 +23,29 @@ export default function Config() {
 
     const [selectedFreelancer, setSelectedFreelancer] = useState(null);
 
+    const fetchFreelancers = async () => {
+        try {
+            const response = await axios.get(`${apiUrl}/freelancers`);
+            // console.log('Freelancers fetched:', response.data.freelancers);
+            // await setFreelancers(response.data.freelancers);
+            // console.log('Freelancers:', freelancers);
+            return response;
+        } catch (error) {
+            console.error('Error fetching freelancers:', error);
+            return [];
+        }
+    };
+
     useEffect(() => {
+        axios
+            .get(`${apiUrl}/freelancers`)
+            .then((response) => {
+                setFreelancers(response.data.freelancers);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
         function handleClickOutside(event) {
             if (selectRef.current && !selectRef.current.contains(event.target)) {
                 setSpecialtyIsOpen(false);
@@ -43,6 +60,17 @@ export default function Config() {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
+
+    useEffect(() => {
+        const fetchSpecialtyOptions = async () => {
+            const allSpecialties = await freelancers
+                .flatMap((f) => f.especialidades)
+                .filter(Boolean);
+            const uniqueSpecialties = await [...new Set(allSpecialties.toLowerCase())];
+            setSpecialtyOptions(uniqueSpecialties);
+        };
+        fetchSpecialtyOptions();
+    }, [freelancers]);
 
     return (
         <>
@@ -185,9 +213,9 @@ export default function Config() {
                 </div>
             </main>
             <Footer />
-            <StartCallWithFreelancer 
-                open={selectedFreelancer} 
-                onClose={() => setSelectedFreelancer(null)} 
+            <StartCallWithFreelancer
+                open={selectedFreelancer}
+                onClose={() => setSelectedFreelancer(null)}
             />
         </>
     );
