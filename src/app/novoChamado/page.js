@@ -11,6 +11,7 @@ import { useState, useEffect, useRef } from 'react';
 export default function Config() {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
     const [freelancers, setFreelancers] = useState([]);
+    const [freelancersFiltered, setFreelancersFiltered] = useState([]);
     const [specialtyIsOpen, setSpecialtyIsOpen] = useState(false);
     const [selectedSpecialty, setSelectedSpecialty] = useState('');
     const selectRef = useRef(null);
@@ -19,7 +20,14 @@ export default function Config() {
     const [starIsOpen, setStarIsOpen] = useState(false);
     const [selectedStar, setSelectedStar] = useState('');
     const starRef = useRef(null);
-    const starOptions = ['★☆☆☆☆', '★★☆☆☆', '★★★☆☆', '★★★★☆', '★★★★★'];
+    const starOptions = [
+        { visual: '☆☆☆☆☆', value: 0 },
+        { visual: '★☆☆☆☆', value: 1.5 },
+        { visual: '★★☆☆☆', value: 2.5 },
+        { visual: '★★★☆☆', value: 3.5 },
+        { visual: '★★★★☆', value: 4.5 },
+        { visual: '★★★★★', value: 5 },
+    ];
 
     const [selectedFreelancer, setSelectedFreelancer] = useState(null);
 
@@ -38,12 +46,14 @@ export default function Config() {
 
     useEffect(() => {
         axios
-            .get(`${apiUrl}/freelancers`)
+            .get(`${apiUrl}/freelancers/details`)
             .then((response) => {
+                console.log('Freelancers fetched:', response.data.freelancers);
                 setFreelancers(response.data.freelancers);
+                setFreelancersFiltered(response.data.freelancers);
             })
             .catch((error) => {
-                console.error('Error:', error);
+                alert(`Erro ${error.response.status}: ${error.response.data.error}`);
             });
 
         function handleClickOutside(event) {
@@ -66,7 +76,11 @@ export default function Config() {
             const allSpecialties = await freelancers
                 .flatMap((f) => f.especialidades)
                 .filter(Boolean);
-            const uniqueSpecialties = await [...new Set(allSpecialties.toLowerCase())];
+            const uniqueSpecialties = await [
+                ...new Set(
+                    allSpecialties.map((s) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase())
+                ),
+            ];
             setSpecialtyOptions(uniqueSpecialties);
         };
         fetchSpecialtyOptions();
@@ -104,6 +118,7 @@ export default function Config() {
                                         <li
                                             onClick={() => {
                                                 setSelectedSpecialty('');
+                                                setSpecialtyIsOpen(false);
                                             }}
                                             className="px-4 py-2 hover:bg-indigo-100 cursor-pointer"
                                         >
@@ -127,15 +142,21 @@ export default function Config() {
                                 </ul>
                             )}
                         </div>
-                        <div className="selfScroll">
-                            <Card selectFreelancer={(id) => setSelectedFreelancer(id)} />
-                            <Card selectFreelancer={(id) => setSelectedFreelancer(id)} />
-                            <Card selectFreelancer={(id) => setSelectedFreelancer(id)} />
-                            <Card selectFreelancer={(id) => setSelectedFreelancer(id)} />
-                            <Card selectFreelancer={(id) => setSelectedFreelancer(id)} />
-                            <Card selectFreelancer={(id) => setSelectedFreelancer(id)} />
-                            <Card selectFreelancer={(id) => setSelectedFreelancer(id)} />
-                            <Card selectFreelancer={(id) => setSelectedFreelancer(id)} />
+                        <div className="selfScroll grow">
+                            {freelancersFiltered.map((freelancer, index) => (
+                                <div key={index}>
+                                    <Card
+                                        selectFreelancer={(id) => setSelectedFreelancer(id)}
+                                        id={freelancer._id}
+                                        imagem={freelancer.user.image_URL}
+                                        nome={freelancer.user.nome}
+                                        especialidades={freelancer.especialidades}
+                                        cidade={freelancer.endereco.cidade}
+                                        estado={freelancer.endereco.estado}
+                                        avaliacao={freelancer.classificacao}
+                                    />
+                                </div>
+                            ))}
                         </div>
                     </div>
                     <div className="flex basis-35/100 flex-col px-15">
@@ -162,6 +183,7 @@ export default function Config() {
                                         <li
                                             onClick={() => {
                                                 setSelectedStar();
+                                                setStarIsOpen(false);
                                             }}
                                             className="px-4 py-2 hover:bg-indigo-100 cursor-pointer"
                                         >
@@ -172,14 +194,14 @@ export default function Config() {
                                         <li
                                             key={idx}
                                             onClick={() => {
-                                                setSelectedStar(option);
+                                                setSelectedStar(option.value);
                                                 setStarIsOpen(false);
                                             }}
                                             className={`px-4 py-2 hover:bg-indigo-50 cursor-pointer text-lg font-medium ${
-                                                option === selectedStar ? 'bg-indigo-100' : ''
+                                                option.value === selectedStar ? 'bg-indigo-100' : ''
                                             }`}
                                         >
-                                            {option}
+                                            {option.visual}
                                         </li>
                                     ))}
                                 </ul>
