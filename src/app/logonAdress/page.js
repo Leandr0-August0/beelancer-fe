@@ -39,56 +39,33 @@ export default function Form() {
         const isProvider = localStorage.getItem('isProvider');
         const user_id = localStorage.getItem('userId');
         try {
-            if (isProvider === 'true') {
-                const response = await axios.post(`${apiUrl}/freelancer`, {
-                    user_id,
-                    especialidades: [],
-                    classificacao: 0,
-                    endereco: {
-                        estado,
-                        cidade,
-                        bairro,
-                        rua,
-                        numero,
-                        complemento,
-                        cep,
-                    },
-                });
-                console.log(response.data);
-                if (response.status === 201) {
-                    alert('Endereço cadastrado com sucesso!');
-                    localStorage.removeItem('isProvider');
-                    localStorage.removeItem('userId');
-                    router.push('/login');
-                }
-            } else {
-                const response = await axios.post(`${apiUrl}/client`, {
-                    user_id,
-                    classificacao: 0,
-                    endereco: {
-                        estado,
-                        cidade,
-                        bairro,
-                        rua,
-                        numero,
-                        complemento,
-                        cep,
-                    },
-                });
-                console.log(response.data);
-                if (response.status === 201) {
-                    alert('Endereço cadastrado com sucesso!');
-                    localStorage.removeItem('isProvider');
-                    localStorage.removeItem('userId');
-                    router.push('/login');
-                }
+            const response = await axios.post(`${apiUrl}/${isProvider === 'true' ? 'freelancer' : 'client'}`, {
+                user_id,
+                ...(isProvider === 'true' && { especialidades: [] }),
+                classificacao: 0,
+                endereco: {
+                    estado,
+                    cidade,
+                    bairro,
+                    rua,
+                    numero,
+                    complemento,
+                    cep,
+                },
+            });
+            console.log(response.data);
+            if (response.status === 201) {
+                alert('Cadastro realizado! Faça o login para continuar.');
+                localStorage.removeItem('isProvider');
+                localStorage.removeItem('userId');
+                router.push('/login');
             }
         } catch (error) {
             console.log(error);
             alert(`Erro ao cadastrar endereço: \n${error}`);
         }
     };
-    
+
     return (
         <main className="bg-gray-100 min-h-screen flex items-center justify-center px-50 py-25">
             <section className="border-2 border-gray-400 rounded-lg w-full h-full flex flex-row">

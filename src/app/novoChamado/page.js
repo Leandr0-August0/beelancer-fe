@@ -11,6 +11,7 @@ import { useState, useEffect, useRef } from 'react';
 export default function Config() {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
     const [freelancers, setFreelancers] = useState([]);
+    const [freelancersFiltered, setFreelancersFiltered] = useState([]);
     const [specialtyIsOpen, setSpecialtyIsOpen] = useState(false);
     const [selectedSpecialty, setSelectedSpecialty] = useState('');
     const selectRef = useRef(null);
@@ -19,31 +20,26 @@ export default function Config() {
     const [starIsOpen, setStarIsOpen] = useState(false);
     const [selectedStar, setSelectedStar] = useState('');
     const starRef = useRef(null);
-    const starOptions = ['★☆☆☆☆', '★★☆☆☆', '★★★☆☆', '★★★★☆', '★★★★★'];
+    const starOptions = [
+        { visual: '☆☆☆☆☆', value: 0 },
+        { visual: '★☆☆☆☆', value: 1 },
+        { visual: '★★☆☆☆', value: 2 },
+        { visual: '★★★☆☆', value: 3 },
+        { visual: '★★★★☆', value: 4 },
+        { visual: '★★★★★', value: 5 },
+    ];
 
     const [selectedFreelancer, setSelectedFreelancer] = useState(null);
 
-    const fetchFreelancers = async () => {
-        try {
-            const response = await axios.get(`${apiUrl}/freelancers`);
-            // console.log('Freelancers fetched:', response.data.freelancers);
-            // await setFreelancers(response.data.freelancers);
-            // console.log('Freelancers:', freelancers);
-            return response;
-        } catch (error) {
-            console.error('Error fetching freelancers:', error);
-            return [];
-        }
-    };
-
     useEffect(() => {
         axios
-            .get(`${apiUrl}/freelancers`)
+            .get(`${apiUrl}/freelancers/details`)
             .then((response) => {
                 setFreelancers(response.data.freelancers);
+                setFreelancersFiltered(response.data.freelancers);
             })
             .catch((error) => {
-                console.error('Error:', error);
+                alert(`Erro ${error.response.status}: ${error.response.data.error}`);
             });
 
         function handleClickOutside(event) {
@@ -66,17 +62,41 @@ export default function Config() {
             const allSpecialties = await freelancers
                 .flatMap((f) => f.especialidades)
                 .filter(Boolean);
-            const uniqueSpecialties = await [...new Set(allSpecialties.toLowerCase())];
+            const uniqueSpecialties = await [
+                ...new Set(
+                    allSpecialties.map((s) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase())
+                ),
+            ];
             setSpecialtyOptions(uniqueSpecialties);
         };
         fetchSpecialtyOptions();
     }, [freelancers]);
 
+    useEffect(() => {
+        let filtered = freelancers.filter((freelancer) => {
+            const matchesSpecialty =
+                selectedSpecialty === '' ||
+                freelancer.especialidades
+                    .map((s) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase())
+                    .includes(selectedSpecialty);
+            const matchesStar =
+                selectedStar === '' || freelancer.classificacao >= selectedStar - 0.5;
+            return matchesSpecialty && matchesStar;
+        });
+        if (selectedStar !== '') {
+            filtered.sort((a, b) => a.classificacao - b.classificacao);
+            setFreelancersFiltered(filtered);
+        } else {
+            filtered.sort((a, b) => b.classificacao - a.classificacao);
+            setFreelancersFiltered(filtered);
+        }
+    }, [selectedSpecialty, selectedStar, freelancers]);
+
     return (
         <>
             <Navbar />
             <main>
-                <div className="flex flex-row justify-between w-full max-h-full">
+                <div className="flex flex-row justify-between w-full h-full">
                     <div className="flex basis-54/100 flex-col pl-45">
                         <div ref={selectRef} className="relative w-full pl-13">
                             <button
@@ -84,7 +104,6 @@ export default function Config() {
                                 className="w-full bg-white font-medium pl-4 pr-10 py-2 text-left cursor-pointer"
                             >
                                 <p className="text-[27px]">
-                                    {' '}
                                     Qual o tipo de profissional que você procura?
                                 </p>
                                 {!specialtyIsOpen && (
@@ -100,10 +119,11 @@ export default function Config() {
                             </button>
                             {specialtyIsOpen && (
                                 <ul className="absolute z-100 mt-1 w-full bg-white border border-gray-300 divide-y divide-gray-300 rounded-md shadow-lg">
-                                    {selectedSpecialty && (
+                                    {selectedSpecialty !== '' && (
                                         <li
                                             onClick={() => {
                                                 setSelectedSpecialty('');
+                                                setSpecialtyIsOpen(false);
                                             }}
                                             className="px-4 py-2 hover:bg-indigo-100 cursor-pointer"
                                         >
@@ -127,15 +147,26 @@ export default function Config() {
                                 </ul>
                             )}
                         </div>
-                        <div className="selfScroll">
-                            <Card selectFreelancer={(id) => setSelectedFreelancer(id)} />
-                            <Card selectFreelancer={(id) => setSelectedFreelancer(id)} />
-                            <Card selectFreelancer={(id) => setSelectedFreelancer(id)} />
-                            <Card selectFreelancer={(id) => setSelectedFreelancer(id)} />
-                            <Card selectFreelancer={(id) => setSelectedFreelancer(id)} />
-                            <Card selectFreelancer={(id) => setSelectedFreelancer(id)} />
-                            <Card selectFreelancer={(id) => setSelectedFreelancer(id)} />
-                            <Card selectFreelancer={(id) => setSelectedFreelancer(id)} />
+                        <div className="selfScroll grow">
+                            {freelancersFiltered.map((freelancer, index) => (
+                                <div key={index}>
+                                    <Card
+                                        selectFreelancer={(id) => {
+                                            const freelancerResult = freelancersFiltered.find(
+                                                (f) => f._id === id
+                                            );
+                                            setSelectedFreelancer(freelancerResult);
+                                        }}
+                                        id={freelancer._id}
+                                        imagem={freelancer.user.image_URL}
+                                        nome={freelancer.user.nome}
+                                        especialidades={freelancer.especialidades}
+                                        cidade={freelancer.endereco.cidade}
+                                        estado={freelancer.endereco.estado}
+                                        avaliacao={freelancer.classificacao}
+                                    />
+                                </div>
+                            ))}
                         </div>
                     </div>
                     <div className="flex basis-35/100 flex-col px-15">
@@ -158,10 +189,11 @@ export default function Config() {
                             </button>
                             {starIsOpen && (
                                 <ul className="absolute z-100 mt-1 w-full bg-white border border-gray-300 divide-y divide-gray-300 rounded-md shadow-lg">
-                                    {selectedStar && (
+                                    {selectedStar !== '' && (
                                         <li
                                             onClick={() => {
-                                                setSelectedStar();
+                                                setSelectedStar('');
+                                                setStarIsOpen(false);
                                             }}
                                             className="px-4 py-2 hover:bg-indigo-100 cursor-pointer"
                                         >
@@ -172,14 +204,14 @@ export default function Config() {
                                         <li
                                             key={idx}
                                             onClick={() => {
-                                                setSelectedStar(option);
+                                                setSelectedStar(option.value);
                                                 setStarIsOpen(false);
                                             }}
                                             className={`px-4 py-2 hover:bg-indigo-50 cursor-pointer text-lg font-medium ${
-                                                option === selectedStar ? 'bg-indigo-100' : ''
+                                                option.value === selectedStar ? 'bg-indigo-100' : ''
                                             }`}
                                         >
-                                            {option}
+                                            {option.visual}
                                         </li>
                                     ))}
                                 </ul>
@@ -215,6 +247,7 @@ export default function Config() {
             <Footer />
             <StartCallWithFreelancer
                 open={selectedFreelancer}
+                freelancer={selectedFreelancer}
                 onClose={() => setSelectedFreelancer(null)}
             />
         </>

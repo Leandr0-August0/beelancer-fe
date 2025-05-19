@@ -15,37 +15,50 @@ export default function Form() {
     const [passwordMatch, setPasswordMatch] = useState(true);
     const router = useRouter();
 
-    const handleCheckEmail = async (email) => {
-        try {
-            const usersResponse = await axios.get(`${apiUrl}/users`);
-            console.log(usersResponse.data);
-            Object.values(usersResponse.data.users).map((user) => {
-                if (user.email === email) {
-                    setUserExists(true);
+    const handleCheckEmail = async (email, password) => {
+        if (!email || !password) {
+            return;
+        }
+        await axios
+            .post(`${apiUrl}/auth`, {
+                email,
+                password,
+            })
+            .then((response) => {
+                setUserExists(true);
+                console.log('Usuário já existe');
+            })
+            .catch((error) => {
+                console.log(error);
+                if (error.response.status === 404) {
+                    setUserExists(false);
+                    console.log('Tudo ok para cadastrar');
                 }
             });
-            // return response.data.exists;
-        } catch (error) {
-            console.error('Error checking email:', error);
-            return false;
-        }
     };
 
     const handleSubmit = async () => {
         try {
-            localStorage.setItem('isProvider', isProvider);
-            const response = await axios.post(`${apiUrl}/user`, {
-                nome,
-                email,
-                password,
-                image_URL: '',
-            });
-            console.log(response.data);
-            const userId = response.data.createdUser._id;
-            localStorage.setItem('userId', userId);
-            if (response.status === 201) {
-                alert('Usuário cadastrado com sucesso!');
-                router.push('/logonAdress');
+            await handleCheckEmail(email, password);
+            if (password !== confirmPassword) {
+                setPasswordMatch(false);
+            } else {
+                setPasswordMatch(true);
+            }
+            if (nome && email && password && passwordMatch && !userExists) {
+                const response = await axios.post(`${apiUrl}/user`, {
+                    nome,
+                    email,
+                    password,
+                    image_URL: '',
+                });
+                const userId = response.data.createdUser._id;
+                if (response.status === 201) {
+                    localStorage.setItem('userId', userId);
+                    localStorage.setItem('isProvider', isProvider);
+                    alert('Usuário cadastrado com sucesso!');
+                    router.push('/logonAdress');
+                }
             }
         } catch (error) {
             console.log(error);
@@ -88,7 +101,6 @@ export default function Form() {
                                 setUserExists(false);
                             }}
                             value={email}
-                            onBlur={() => handleCheckEmail(email)}
                             required
                         />
                         <p className={`text-red-500 text-[70%] ${userExists ? 'block' : 'hidden'}`}>
@@ -142,34 +154,15 @@ export default function Form() {
                     <div className=" flex flex-col items-center justify-center pt-5">
                         <button
                             className=" overflow-hidden py-5 rounded-[25px] border-[rgba(174,174,174,1)] border-solid border-2 text-2xl text-black font-medium leading-none w-100"
-                            onClick={async () => {
-                                try {
-                                    if (password !== confirmPassword) {
-                                        setPasswordMatch(false);
-                                        alert('As senhas devem ser iguais.');
-                                    } else {
-                                        setPasswordMatch(true);
-                                        if (
-                                            nome &&
-                                            email &&
-                                            password &&
-                                            passwordMatch &&
-                                            !userExists
-                                        ) {
-                                            await handleSubmit();
-                                        } else {
-                                            alert('Preencha todos os campos corretamente!');
-                                        }
-                                    }
-                                } catch (error) {
-                                    console.log(error);
-                                }
-                            }}
+                            onClick={() => handleSubmit()}
                         >
                             Próximo
                         </button>
                         <div className=" flex items-center justify-center pb-4 pt-5">
-                            <a href="/login" className="grid place-items-center overflow-hidden py-5 rounded-[25px] border-[rgba(174,174,174,1)] border-solid border-2 text-2xl text-black font-medium leading-none w-100">
+                            <a
+                                href="/login"
+                                className="grid place-items-center overflow-hidden py-5 rounded-[25px] border-[rgba(174,174,174,1)] border-solid border-2 text-2xl text-black font-medium leading-none w-100"
+                            >
                                 Entrar
                             </a>
                         </div>
