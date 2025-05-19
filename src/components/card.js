@@ -1,4 +1,5 @@
-
+"use client";
+import Image from "next/image";
 export default function Card({
     selectFreelancer,
     id,
@@ -14,9 +15,9 @@ export default function Card({
             <div className="absolute z-10 bg-[#ffdc62] w-30 h-33 top-[45%] translate-y-[-50%] clipExagon ">
                 {/* foto */}
                 {imagem ? (
-                    <img src={imagem} alt={`${nome}Picture`} />
+                    <Image src={imagem} alt={`${nome}Picture`} />
                 ) : (
-                    <img
+                    <Image
                         src="\undefinedProfilePic.png"
                         alt="profilePic"
                         className="w-full h-full object-cover"

@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect, useRef } from 'react';
 
 export default function TruncateText({ text, maxLines, classText, classToggle }) {
@@ -10,7 +11,7 @@ export default function TruncateText({ text, maxLines, classText, classToggle })
         if (!element) return;
 
         const lineHeight = parseFloat(getComputedStyle(element).lineHeight);
-        const maxHeight = lineHeight * maxLines;
+        const maxHeight = lineHeight * (maxLines && maxLines || 3);
 
         setIsTruncated(element.scrollHeight > maxHeight);
     }, []);

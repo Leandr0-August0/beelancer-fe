@@ -1,10 +1,12 @@
+"use client";
 import * as React from "react";
+import Image from "next/image";
 
 function ReviewItem({ avatarSrc, reviewerName, reviewTitle, reviewText }) {
   return (
     <article className="w-full">
       <div className="flex gap-3.5 items-center text-3xl leading-none whitespace-nowrap">
-        <img
+        <Image
           src={avatarSrc}
           alt={`${reviewerName}'s avatar`}
           className="object-contain shrink-0 self-stretch my-auto aspect-square w-[43px]"
