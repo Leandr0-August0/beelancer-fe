@@ -1,13 +1,16 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { authService } from '@/service/auth';
 import { useRouter } from 'next/navigation';
+import { logout, login } from '@/service/auth';
 
 export default function Navbar() {
     const router = useRouter();
     return (
         <nav>
-            <div className="perfilLine bg-(--color1) flex justify-end items-center px-18 h-10">
+            <div className="perfilLine bg-(--color1) flex justify-end items-center px-18 h-10 gap-10">
                 <a
                     onClick={() =>
                         authService(router, () => {
@@ -31,6 +34,12 @@ export default function Navbar() {
                         </g>
                     </svg>
                     Perfil
+                </a>
+                <a
+                    onClick={() => (localStorage.getItem('token') ? logout(router) : login(router))}
+                    className="cursor-pointer"
+                >
+                    {localStorage.getItem('token') ? 'Sair' : 'Entrar'}
                 </a>
             </div>
             <div className="flex flex-row">

@@ -157,15 +157,15 @@ export default function Home() {
             <main>
                 <div className="flex flex-col w-full h-full gap-8 py-8 overflow-auto">
                         {/* card de publicação */}
-                    {Object.values(posts).map((post, index) => {
-                        const imageCount = post.imagens.length;
+                    {posts.length > 0 ? Object.values(posts).map((post, index) => {
+                        const imageCount = post?.imagens?.length;
                         const startIndex = startIndexes[index] || 0;
                         const hasEnoughImages = imageCount > 2;
                         const visibleImages = [
-                            post.imagens[startIndex],
-                            post.imagens[(startIndex + 1) % imageCount],
+                            post?.imagens[startIndex],
+                            post?.imagens[(startIndex + 1) % imageCount],
                         ];
-                        const date = new Date(post.data_criacao);
+                        const date = new Date(post?.data_criacao);
                         const currentYear = new Date().getFullYear();
                         const formattedDate = `${String(date.getDate()).padStart(2, '0')}/${String(
                             date.getMonth() + 1
@@ -188,14 +188,14 @@ export default function Home() {
                                         alt="avatar"
                                     />
                                     <p>
-                                        {post.freelancer.user.nome}
+                                        {post?.freelancer?.user?.nome}
                                     </p>
                                 </div>
                                 <div
                                     className={`relative flex flex-col transition-all duration-300 ease-in-out px-16 py-4`}
                                 >
                                     <TruncateText
-                                        text={post.descricao}
+                                        text={post?.descricao}
                                         maxLines={3}
                                         classText={`text-md`}
                                         classToggle={`text-sm`}
@@ -203,7 +203,7 @@ export default function Home() {
                                 </div>
                                 <div className="flex mb-2">
                                     <button
-                                        onClick={() => handlePrevClick(post.id, imageCount)}
+                                        onClick={() => handlePrevClick(post?.id, imageCount)}
                                         disabled={!hasEnoughImages}
                                         className={`h-full w-[10%] font-bold text-lg content-center cursor-pointer ${
                                             !hasEnoughImages ? 'opacity-30 cursor-not-allowed' : ''
@@ -232,7 +232,7 @@ export default function Home() {
                                     </div>
 
                                     <button
-                                        onClick={() => handleNextClick(post.id, imageCount)}
+                                        onClick={() => handleNextClick(post?.id, imageCount)}
                                         disabled={!hasEnoughImages}
                                         className={`h-full w-[10%] font-bold text-lg self-center cursor-pointer ${
                                             !hasEnoughImages ? 'opacity-30 cursor-not-allowed' : ''
@@ -248,7 +248,7 @@ export default function Home() {
                                         className="aspect-[1.07] object-contain w-[29px] shrink-0"
                                         />
                                         <div className="my-auto">
-                                        {post.qtd_like}
+                                        {post?.qtd_like}
                                         </div>
                                     </div>
                                     <div className="text-xl font-normal leading-none">
@@ -257,7 +257,11 @@ export default function Home() {
                                 </div>
                             </div>
                         );
-                    })}
+                    }) : (
+                        <div className="flex justify-center items-center h-screen">
+                            <p className="text-2xl font-bold">Nenhum post encontrado</p>
+                        </div>
+                    )}
                 </div>
             </main>
             <Footer />
