@@ -22,33 +22,19 @@ export default function Config() {
     const starRef = useRef(null);
     const starOptions = [
         { visual: '☆☆☆☆☆', value: 0 },
-        { visual: '★☆☆☆☆', value: 1.5 },
-        { visual: '★★☆☆☆', value: 2.5 },
-        { visual: '★★★☆☆', value: 3.5 },
-        { visual: '★★★★☆', value: 4.5 },
+        { visual: '★☆☆☆☆', value: 1 },
+        { visual: '★★☆☆☆', value: 2 },
+        { visual: '★★★☆☆', value: 3 },
+        { visual: '★★★★☆', value: 4 },
         { visual: '★★★★★', value: 5 },
     ];
 
     const [selectedFreelancer, setSelectedFreelancer] = useState(null);
 
-    const fetchFreelancers = async () => {
-        try {
-            const response = await axios.get(`${apiUrl}/freelancers`);
-            // console.log('Freelancers fetched:', response.data.freelancers);
-            // await setFreelancers(response.data.freelancers);
-            // console.log('Freelancers:', freelancers);
-            return response;
-        } catch (error) {
-            console.error('Error fetching freelancers:', error);
-            return [];
-        }
-    };
-
     useEffect(() => {
         axios
             .get(`${apiUrl}/freelancers/details`)
             .then((response) => {
-                console.log('Freelancers fetched:', response.data.freelancers);
                 setFreelancers(response.data.freelancers);
                 setFreelancersFiltered(response.data.freelancers);
             })
@@ -86,11 +72,31 @@ export default function Config() {
         fetchSpecialtyOptions();
     }, [freelancers]);
 
+    useEffect(() => {
+        let filtered = freelancers.filter((freelancer) => {
+            const matchesSpecialty =
+                selectedSpecialty === '' ||
+                freelancer.especialidades
+                    .map((s) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase())
+                    .includes(selectedSpecialty);
+            const matchesStar =
+                selectedStar === '' || freelancer.classificacao >= selectedStar - 0.5;
+            return matchesSpecialty && matchesStar;
+        });
+        if (selectedStar !== '') {
+            filtered.sort((a, b) => a.classificacao - b.classificacao);
+            setFreelancersFiltered(filtered);
+        } else {
+            filtered.sort((a, b) => b.classificacao - a.classificacao);
+            setFreelancersFiltered(filtered);
+        }
+    }, [selectedSpecialty, selectedStar, freelancers]);
+
     return (
         <>
             <Navbar />
             <main>
-                <div className="flex flex-row justify-between w-full max-h-full">
+                <div className="flex flex-row justify-between w-full h-full">
                     <div className="flex basis-54/100 flex-col pl-45">
                         <div ref={selectRef} className="relative w-full pl-13">
                             <button
@@ -98,7 +104,6 @@ export default function Config() {
                                 className="w-full bg-white font-medium pl-4 pr-10 py-2 text-left cursor-pointer"
                             >
                                 <p className="text-[27px]">
-                                    {' '}
                                     Qual o tipo de profissional que você procura?
                                 </p>
                                 {!specialtyIsOpen && (
@@ -114,7 +119,7 @@ export default function Config() {
                             </button>
                             {specialtyIsOpen && (
                                 <ul className="absolute z-100 mt-1 w-full bg-white border border-gray-300 divide-y divide-gray-300 rounded-md shadow-lg">
-                                    {selectedSpecialty && (
+                                    {selectedSpecialty !== '' && (
                                         <li
                                             onClick={() => {
                                                 setSelectedSpecialty('');
@@ -146,7 +151,12 @@ export default function Config() {
                             {freelancersFiltered.map((freelancer, index) => (
                                 <div key={index}>
                                     <Card
-                                        selectFreelancer={(id) => setSelectedFreelancer(id)}
+                                        selectFreelancer={(id) => {
+                                            const freelancerResult = freelancersFiltered.find(
+                                                (f) => f._id === id
+                                            );
+                                            setSelectedFreelancer(freelancerResult);
+                                        }}
                                         id={freelancer._id}
                                         imagem={freelancer.user.image_URL}
                                         nome={freelancer.user.nome}
@@ -179,10 +189,10 @@ export default function Config() {
                             </button>
                             {starIsOpen && (
                                 <ul className="absolute z-100 mt-1 w-full bg-white border border-gray-300 divide-y divide-gray-300 rounded-md shadow-lg">
-                                    {selectedStar && (
+                                    {selectedStar !== '' && (
                                         <li
                                             onClick={() => {
-                                                setSelectedStar();
+                                                setSelectedStar('');
                                                 setStarIsOpen(false);
                                             }}
                                             className="px-4 py-2 hover:bg-indigo-100 cursor-pointer"
@@ -237,6 +247,7 @@ export default function Config() {
             <Footer />
             <StartCallWithFreelancer
                 open={selectedFreelancer}
+                freelancer={selectedFreelancer}
                 onClose={() => setSelectedFreelancer(null)}
             />
         </>
