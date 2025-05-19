@@ -1,4 +1,4 @@
-import axios from 'axios';
+"use client";
 
 export const authService = (router, ok) => {
     const token = localStorage.getItem('token');
@@ -10,8 +10,8 @@ export const authService = (router, ok) => {
 };
 
 export const logout = (router) => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user_id');
+    {typeof window !== 'undefined' && localStorage.removeItem('token')};
+    {typeof window !== 'undefined' && localStorage.removeItem('user_id')};
     router.push('/');
 };
 

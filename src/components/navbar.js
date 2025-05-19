@@ -36,10 +36,10 @@ export default function Navbar() {
                     Perfil
                 </a>
                 <a
-                    onClick={() => (localStorage.getItem('token') ? logout(router) : login(router))}
+                    onClick={() => (typeof window !== 'undefined' && localStorage.getItem('token') ? logout(router) : login(router))}
                     className="cursor-pointer"
                 >
-                    {localStorage.getItem('token') ? 'Sair' : 'Entrar'}
+                    {typeof window !== 'undefined' && localStorage.getItem('token') ? 'Sair' : 'Entrar'}
                 </a>
             </div>
             <div className="flex flex-row">

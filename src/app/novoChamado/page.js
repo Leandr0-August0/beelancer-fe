@@ -8,8 +8,8 @@ import axios from 'axios';
 
 import { useState, useEffect, useRef } from 'react';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 export default function Config() {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
     const [freelancers, setFreelancers] = useState([]);
     const [freelancersFiltered, setFreelancersFiltered] = useState([]);
     const [specialtyIsOpen, setSpecialtyIsOpen] = useState(false);

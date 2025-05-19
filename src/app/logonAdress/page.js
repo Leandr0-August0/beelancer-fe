@@ -3,6 +3,7 @@ import Link from 'next/link';
 import axios from 'axios';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 export default function Form() {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -56,8 +57,8 @@ export default function Form() {
             console.log(response.data);
             if (response.status === 201) {
                 alert('Cadastro realizado! Faça o login para continuar.');
-                localStorage.removeItem('isProvider');
-                localStorage.removeItem('userId');
+                {typeof window !== 'undefined' && localStorage.removeItem('isProvider')};
+                {typeof window !== 'undefined' && localStorage.removeItem('userId')};
                 router.push('/login');
             }
         } catch (error) {
@@ -70,13 +71,15 @@ export default function Form() {
         <main className="bg-gray-100 min-h-screen flex items-center justify-center px-50 py-25">
             <section className="border-2 border-gray-400 rounded-lg w-full h-full flex flex-row">
                 <div className="basis-5/10 flex flex-col items-center justify-center">
-                    <img
+                    <Image
                         src="https://cdn.builder.io/api/v1/image/assets/7ee687050c0e447c8632baa860595daf/4cecef94f8c136f5d16aa08bbb882183ae312864?placeholderIfAbsent=true"
                         className="pb-10"
-                    />
-                    <img
+                        alt='logo'
+                        />
+                    <Image
                         src="https://cdn.builder.io/api/v1/image/assets/7ee687050c0e447c8632baa860595daf/05ad82cfe47140e25f712e5dd2312584a8c26abd?placeholderIfAbsent=true"
                         className="pb-25"
+                        alt='logo'
                     />
                 </div>
                 <div className="basis-5/10 flex flex-col items-center justify-center space-between ">

@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
+import Image from 'next/image';
 
 export default function StartCallWithFreelancer({ open, freelancer, onClose }) {
     const [titulo, setTitulo] = useState('');
@@ -33,9 +34,9 @@ export default function StartCallWithFreelancer({ open, freelancer, onClose }) {
                             <div className="bg-[#ffdc62] w-25 h-28 clipExagon ">
                                 {/* foto */}
                                 {freelancer?.user?.image_URL ? (
-                                    <img src={freelancer?.user?.image_URL} alt={`${freelancer?.user?.nome}Pic`} />
+                                    <Image src={freelancer?.user?.image_URL} alt={`${freelancer?.user?.nome}Pic`} />
                                 ) : (
-                                    <img
+                                    <Image
                                         src="\undefinedProfilePic.png"
                                         alt="profilePic"
                                         className="w-full h-full object-cover"

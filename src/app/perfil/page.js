@@ -151,9 +151,10 @@ export default function Config() {
                                     </div>
                                     <div className="relative flex flex-row px-17 justify-between py-4">
                                         <div className="flex items-stretch gap-3.5 text-2xl font-medium leading-none">
-                                            <img
+                                            <Image
                                             src="https://cdn.builder.io/api/v1/image/assets/7ee687050c0e447c8632baa860595daf/936a6a8d29b4ade7fd57bf4e6e384aee8a9b4d1d?placeholderIfAbsent=true"
                                             className="aspect-[1.07] object-contain w-[29px] shrink-0"
+                                            alt='like'
                                             />
                                             <div className="my-auto">
                                             70 likes
