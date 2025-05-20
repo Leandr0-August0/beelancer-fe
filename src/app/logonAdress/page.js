@@ -40,25 +40,32 @@ export default function Form() {
         const isProvider = localStorage.getItem('isProvider');
         const user_id = localStorage.getItem('userId');
         try {
-            const response = await axios.post(`${apiUrl}/${isProvider === 'true' ? 'freelancer' : 'client'}`, {
-                user_id,
-                ...(isProvider === 'true' && { especialidades: [] }),
-                classificacao: 0,
-                endereco: {
-                    estado,
-                    cidade,
-                    bairro,
-                    rua,
-                    numero,
-                    complemento,
-                    cep,
-                },
-            });
+            const response = await axios.post(
+                `${apiUrl}/${isProvider === 'true' ? 'freelancer' : 'client'}`,
+                {
+                    user_id,
+                    ...(isProvider === 'true' && { especialidades: [] }),
+                    classificacao: 0,
+                    endereco: {
+                        estado,
+                        cidade,
+                        bairro,
+                        rua,
+                        numero,
+                        complemento,
+                        cep,
+                    },
+                }
+            );
             console.log(response.data);
             if (response.status === 201) {
                 alert('Cadastro realizado! Faça o login para continuar.');
-                {typeof window !== 'undefined' && localStorage.removeItem('isProvider')};
-                {typeof window !== 'undefined' && localStorage.removeItem('userId')};
+                {
+                    typeof window !== 'undefined' && localStorage.removeItem('isProvider');
+                }
+                {
+                    typeof window !== 'undefined' && localStorage.removeItem('userId');
+                }
                 router.push('/login');
             }
         } catch (error) {
@@ -71,16 +78,9 @@ export default function Form() {
         <main className="bg-gray-100 min-h-screen flex items-center justify-center px-50 py-25">
             <section className="border-2 border-gray-400 rounded-lg w-full h-full flex flex-row">
                 <div className="basis-5/10 flex flex-col items-center justify-center">
-                    <Image
-                        src="https://cdn.builder.io/api/v1/image/assets/7ee687050c0e447c8632baa860595daf/4cecef94f8c136f5d16aa08bbb882183ae312864?placeholderIfAbsent=true"
-                        className="pb-10"
-                        alt='logo'
-                        />
-                    <Image
-                        src="https://cdn.builder.io/api/v1/image/assets/7ee687050c0e447c8632baa860595daf/05ad82cfe47140e25f712e5dd2312584a8c26abd?placeholderIfAbsent=true"
-                        className="pb-25"
-                        alt='logo'
-                    />
+                    <div className="relative w-100 h-100">
+                        <Image src="/logomarca.png" className="pb-10" alt="logo" fill />
+                    </div>
                 </div>
                 <div className="basis-5/10 flex flex-col items-center justify-center space-between ">
                     <h2 className="text-2xl font-bold mb-6 text-center">Cadastro</h2>
