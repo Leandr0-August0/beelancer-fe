@@ -130,7 +130,7 @@ export default function Config() {
                                             Limpar escolha
                                         </li>
                                     )}
-                                    {specialtyOptions.map((option, idx) => (
+                                    {specialtyOptions.length > 0 ? specialtyOptions.map((option, idx) => (
                                         <li
                                             key={idx}
                                             onClick={() => {
@@ -143,7 +143,11 @@ export default function Config() {
                                         >
                                             {option}
                                         </li>
-                                    ))}
+                                    )) : (
+                                        <li className="px-4 py-2 text-gray-500">
+                                            Nenhuma especialidade disponível
+                                        </li>
+                                    )}
                                 </ul>
                             )}
                         </div>
@@ -163,7 +167,7 @@ export default function Config() {
                                         especialidades={freelancer.especialidades}
                                         cidade={freelancer.endereco.cidade}
                                         estado={freelancer.endereco.estado}
-                                        avaliacao={freelancer.classificacao}
+                                        classificacao={freelancer.classificacao}
                                     />
                                 </div>
                             ))}

@@ -20,8 +20,17 @@ export default function Form() {
             .then((result) => {
                 console.log(result);
                 if (result.status === 200) {
-                    {typeof window !== 'undefined' && localStorage.setItem('user_id', result.data.user_id)}
-                    {typeof window !== 'undefined' && localStorage.setItem('token', result.data.token)}
+                    // colocar o tempo de expiração do token no .env
+                    const token = result.data.token;
+                    const expiresIn = Date.now() + process.env.NEXT_PUBLIC_TOKEN_EXPIRES_IN * 1000;
+                    // const expiresIn = Date.now() + 5 * 60 * 1000; // 5 minutes
+                    const userId = result.data.user_id;
+                    
+                    const data = JSON.stringify({ token, expiresIn, userId });
+                    {
+                        typeof window !== 'undefined' &&
+                            sessionStorage.setItem('authToken', data);
+                    }
                     router.push('/');
                 }
             })
@@ -38,16 +47,9 @@ export default function Form() {
         <main className="bg-gray-100 min-h-screen flex items-center justify-center px-50 py-25">
             <section className="border-2 border-gray-400 rounded-lg w-full h-full flex flex-row">
                 <div className="basis-5/10 flex flex-col items-center justify-center">
-                    <Image
-                        src="https://cdn.builder.io/api/v1/image/assets/7ee687050c0e447c8632baa860595daf/4cecef94f8c136f5d16aa08bbb882183ae312864?placeholderIfAbsent=true"
-                        className="pb-10"
-                        alt='logo'
-                        />
-                    <Image
-                        src="https://cdn.builder.io/api/v1/image/assets/7ee687050c0e447c8632baa860595daf/05ad82cfe47140e25f712e5dd2312584a8c26abd?placeholderIfAbsent=true"
-                        className="pb-25"
-                        alt='logo'
-                    />
+                    <div className="relative w-100 h-100">
+                        <Image src="/logomarca.png" className="pb-10" alt="logo" fill />
+                    </div>
                 </div>
                 <div className="basis-5/10 flex flex-col items-center justify-center space-between ">
                     <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>

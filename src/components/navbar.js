@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { authService } from '@/service/auth';
 import { useRouter } from 'next/navigation';
-import { logout, login } from '@/service/auth';
+import { verifyToken, logout, login } from '@/service/auth';
 
 export default function Navbar() {
     const router = useRouter();
@@ -36,15 +36,21 @@ export default function Navbar() {
                     Perfil
                 </a>
                 <a
-                    onClick={() => (typeof window !== 'undefined' && localStorage.getItem('token') ? logout(router) : login(router))}
+                    onClick={() =>
+                        typeof window !== 'undefined' && sessionStorage.getItem('authToken')
+                            ? logout(router)
+                            : login(router)
+                    }
                     className="cursor-pointer"
                 >
-                    {typeof window !== 'undefined' && localStorage.getItem('token') ? 'Sair' : 'Entrar'}
+                    {typeof window !== 'undefined' && sessionStorage.getItem('authToken')
+                        ? 'Sair'
+                        : 'Entrar'}
                 </a>
             </div>
             <div className="flex flex-row">
                 <div className="basis-7/10 flex items-center px-30">
-                    <Link href={'/'}>
+                    <Link onClick={() => verifyToken()} href={'/'}>
                         <Image src="/logoPreta.svg" alt="Beelancer Logo" width={90} height={97} />
                     </Link>
                 </div>
