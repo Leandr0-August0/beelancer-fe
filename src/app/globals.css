@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Exile&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import 'tailwindcss';
 
 :root {
@@ -10,9 +11,7 @@
     --gray: #808080;
     --dark-gray: #3f3f3f;
 }
-
 body {
-    font-size: clamp(1rem, 1vw + 0.5rem, 2rem); 
     @apply w-full h-screen flex flex-col;
 }
 
@@ -75,4 +74,7 @@ footer {
 
 .hidden {
     display: none;
+}
+.roboto {
+    font-family: 'Roboto', sans-serif;
 }

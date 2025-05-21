@@ -48,13 +48,13 @@ export default function Navbar() {
                         : 'Entrar'}
                 </a>
             </div>
-            <div className="flex flex-row">
-                <div className="basis-7/10 flex items-center px-30">
+            <div className="flex flex-row h-35 items-center">
+                <div className="basis-7/10 flex items-center pl-40">
                     <Link onClick={() => verifyToken()} href={'/'}>
                         <Image src="/logoPreta.svg" alt="Beelancer Logo" width={90} height={97} />
                     </Link>
                 </div>
-                <div className="basis-3/8">
+                <div className="basis-4/10 px-10">
                     <div className="flex flex-row justify-between items-center h-32">
                         <div className="basis-1/3 flex justify-center">
                             <a
@@ -67,8 +67,8 @@ export default function Navbar() {
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                    width="43"
-                                    height="40"
+                                    width="2vw"
+                                    height="2vw"
                                     viewBox="0 0 16 16"
                                 >
                                     <path
@@ -91,8 +91,8 @@ export default function Navbar() {
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                    width="40"
-                                    height="40"
+                                    width="2vw"
+                                    height="2vw"
                                     viewBox="0 0 512 512"
                                 >
                                     <path
@@ -114,8 +114,8 @@ export default function Navbar() {
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                    width="40"
-                                    height="40"
+                                    width="2vw"
+                                    height="2vw"
                                     viewBox="0 0 24 24"
                                 >
                                     <g fill="424242" fillRule="424242">

@@ -97,13 +97,13 @@ export default function Config() {
             <Navbar />
             <main>
                 <div className="flex flex-row justify-between w-full h-full">
-                    <div className="flex basis-54/100 flex-col pl-45">
+                    <div className="flex basis-54/100 flex-col pl-50">
                         <div ref={selectRef} className="relative w-full pl-13">
                             <button
                                 onClick={() => setSpecialtyIsOpen(!specialtyIsOpen)}
                                 className="w-full bg-white font-medium pl-4 pr-10 py-2 text-left cursor-pointer"
                             >
-                                <p className="text-[27px]">
+                                <p className="text-[27px] font-medium">
                                     Qual o tipo de profissional que você procura?
                                 </p>
                                 {!specialtyIsOpen && (
