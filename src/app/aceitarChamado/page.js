@@ -21,7 +21,7 @@ export default function Config() {
             <main>
                 <div className="grid grid-cols-6 w-full ">
                     {chamados.map((chamado) => (
-                        <div className="col-span-4 col-start-2">
+                        <div className="col-span-4 col-start-2" key={chamado.id}>
                             <div className="relative pl-5 pb-7 h-full">
                                 <div className="absolute z-10 bg-[#ffdc62] w-30 h-33 left-[4%] top-[45%] translate-y-[-50%] clipExagon ">
                                     {/* foto */}
