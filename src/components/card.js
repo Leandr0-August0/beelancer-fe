@@ -15,10 +15,10 @@ export default function Card({
             <div className="absolute z-10 bg-[#ffdc62] w-30 h-33 top-[45%] translate-y-[-50%] clipExagon ">
                 {/* foto */}
                 {imagem !== '' ? (
-                    <Image src={imagem || ''} alt={`${nome}Picture`} fill />
+                    <Image src={imagem} alt={`${nome}Picture`} fill />
                 ) : (
                     <Image
-                        src={"/undefinedProfilePic.png" || ''}
+                        src={"/undefinedProfilePic.png"}
                         alt="profilePic"
                         fill
                         className="w-full h-full object-cover"

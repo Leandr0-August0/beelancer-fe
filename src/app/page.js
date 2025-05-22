@@ -188,7 +188,7 @@ export default function Home() {
                                 >
                                     <div className="flex flex-row gap-3 items-center  text-3xl font-medium px-8">
                                         <Image
-                                            src={post?.freelancer?.user?.image_URL || ''}
+                                            src={post?.freelancer?.user?.image_URL}
                                             width={50}
                                             height={50}
                                             className="rounded-full w-[5rem] h-[5rem ]"
@@ -230,10 +230,10 @@ export default function Home() {
                                                 >
                                                     <div className="relative w-full aspect-[4/5]">
                                                         <Image
-                                                            src={imagem?.imagemURL || ''}
+                                                            src={imagem?.imagemURL}
                                                             fill
                                                             className="object-cover text-gray-500"
-                                                            alt={imagem?.titulo || ''}
+                                                            alt={imagem?.titulo}
                                                         />
                                                     </div>
                                                     <p className="mt-2 text-center font-medium">

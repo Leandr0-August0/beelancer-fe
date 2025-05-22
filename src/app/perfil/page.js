@@ -8,14 +8,16 @@ import ReviewSection from '@/components/reviewsection';
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import TruncateText from '@/components/TruncateText';
+import SkillModal from '@/components/skillModal';
+
 
 const publis = [
     {
         id: 1,
         author: 'Edivaldo',
         images: [
-            { photo: '/assentamento1.jpg', title: 'Início do assentamento de porcelanato' },
-            { photo: '/assentamento2.jpg', title: 'Metade do piso concluído' },
+            { photo: '/1.png', title: 'Início do assentamento de porcelanato' },
+            { photo: '/2.png', title: 'Metade do piso concluído' },
             { photo: '/assentamento3.jpg', title: 'Resultado final com rodapé embutido' },
         ],
         text: 'Hoje concluí o assentamento de piso porcelanato na cozinha da cliente. Nivelamento perfeito e acabamento com rodapé embutido. Cliente gostou do meu trabalho e me recomendaram para outros projetos!',
@@ -24,8 +26,8 @@ const publis = [
         id: 2,
         author: 'Edivaldo',
         images: [
-            { photo: '/pintura1.jpg', title: 'Preparação da fachada para pintura' },
-            { photo: '/pintura2.jpg', title: 'Resultado final após pintura externa' },
+            { photo: '/3.jpg', title: 'Preparação da fachada para pintura' },
+            { photo: '/4.jpg', title: 'Resultado final após pintura externa' },
         ],
         text: 'Finalizei a pintura externa de uma casa com tinta acrílica premium. Utilizei tons claros para melhor refletância solar e deixei tudo protegido contra umidade.',
     },
@@ -54,6 +56,10 @@ export default function Config() {
         });
     };
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const abrirModal = () => setIsModalOpen(true);
+    const fecharModal = () => setIsModalOpen(false);
+
     return (
         <>
             <Navbar />
@@ -63,7 +69,8 @@ export default function Config() {
                         <article className="flex flex-col items-start rounded-none">
                             <div className="ml-6 max-w-full w-[461px]">
                                 <ProfileHeader />
-                                <SkillsSection />
+                                <SkillsSection onAbrir={abrirModal}/>
+                                <SkillModal isOpen={isModalOpen} onClose={fecharModal}/>
                             </div>
                             <hr className="self-stretch mt-6 w-[95%] border border-solid border-neutral-400 min-h-px max-md:max-w-full" />
                             <ReviewSection />
@@ -83,38 +90,40 @@ export default function Config() {
 
                                 return (
                                     <div
-                                        className="flex flex-col bg-[rgba(239,239,239,1)] w-[100%] rounded-lg p-4 mx-auto"
+                                        className="flex flex-col bg-[rgba(239,239,239,1)] w-[100%] rounded-lg pt-8 pb-2 mx-auto"
                                         key={publi.id}
                                     >
-                                        <div className="flex flex-row gap-3 items-center mb-2 text-3xl font-medium pl-15 pb-3">
+                                        <div className="flex flex-row gap-3 items-center  text-3xl font-medium px-8">
                                             <div className="relative w-13 h-13 rounded-full overflow-hidden">
                                                 <Image
-                                                    src={
-                                                        'https://firebasestorage.googleapis.com/v0/b/sutilaromas-dda9d.firebasestorage.app/o/beelancer%2FRectangle%2043.png?alt=media&token=ed030461-c283-4e12-9bd6-d7a2063ccc80'
-                                                    }
+                                                    src={'https://firebasestorage.googleapis.com/v0/b/sutilaromas-dda9d.firebasestorage.app/o/beelancer%2FRectangle%2043.png?alt=media&token=ed030461-c283-4e12-9bd6-d7a2063ccc80'}
+                                                    width={50}
+                                                    height={50}
+                                                    className="rounded-full w-[5rem] h-[5rem ]"
                                                     alt="avatar"
-                                                    fill
                                                 />
                                             </div>
-                                            <p>{publi.author}</p>
+                                            <p className="text-3x1 roboto pl-2" >{publi.author}</p>
                                         </div>
                                         <div
-                                            className={`relative flex flex-col transition-all duration-300 ease-in-out px-16 py-4`}
+                                            className={`relative flex flex-col transition-all duration-300 ease-in-out px-8 pb-3 pt-2`}
                                         >
+                                            <p className="font-medium text-xl">Revestimento no Banheiro </p>
                                             <TruncateText
                                                 text={publi.text}
                                                 maxLines={3}
                                                 classText={`text-md`}
                                                 classToggle={`text-sm`}
                                             />
+                                           
                                         </div>
-                                        <div className="flex mb-2">
+                                        <div className="flex mb-2 justify-center">
                                             <button
                                                 onClick={() =>
                                                     handlePrevClick(publi.id, imageCount)
                                                 }
                                                 disabled={!hasEnoughImages}
-                                                className={`h-full w-[10%] font-bold text-lg content-center cursor-pointer ${
+                                                className={`h-full w-[5%] font-bold text-lg content-center cursor-pointer ${
                                                     !hasEnoughImages
                                                         ? 'opacity-30 cursor-not-allowed'
                                                         : ''
@@ -123,21 +132,23 @@ export default function Config() {
                                                 &lt;
                                             </button>
 
-                                            <div className="carrouselImages flex flex-row gap-4 w-[80%] ">
+                                            <div className="carrouselImages flex flex-row gap-4 w-full ">
                                                 {visibleImages.map((image, index) => (
                                                     <div
                                                         key={index}
-                                                        className="relative carrousel-item w-[50%] aspect-[4/5] bg-white flex items-center justify-center "
+                                                        className="w-1/2 flex flex-col items-center "
                                                     >
+                                                    <div className="relative w-full aspect-[4/5]">
                                                         <Image
                                                             src={image.photo}
                                                             fill
                                                             alt={image.title}
-                                                            className="object-cover place-self-center text-gray-500"
+                                                            className="object-cover text-gray-500"
                                                         />
-                                                        <p className="text-xs self-start z-10">
+                                                        <p className="mt-2 text-center font-medium">
                                                             {image.title}
                                                         </p>
+                                                    </div>
                                                     </div>
                                                 ))}
                                             </div>
@@ -147,7 +158,7 @@ export default function Config() {
                                                     handleNextClick(publi.id, imageCount)
                                                 }
                                                 disabled={!hasEnoughImages}
-                                                className={`h-full w-[10%] font-bold text-lg self-center cursor-pointer ${
+                                                className={`h-full w-[5%] font-bold text-lg self-center cursor-pointer ${
                                                     !hasEnoughImages
                                                         ? 'opacity-30 cursor-not-allowed'
                                                         : ''
@@ -156,7 +167,7 @@ export default function Config() {
                                                 &gt;
                                             </button>
                                         </div>
-                                        <div className="relative flex flex-row px-17 justify-between py-4">
+                                        <div className="flex flex-row px-10 justify-between items-center py-4">
                                             <div className="flex items-stretch gap-3.5 text-2xl font-medium leading-none">
                                                 <svg
                                                     alt="like"

@@ -1,6 +1,10 @@
-import * as React from "react";
+import { Main } from 'next/document';
+import React, { useState } from 'react';
 
-function SkillsSection() {
+
+
+export default function SkillsSection({onAbrir }) {
+  const { id } = 1;
   return (
     <section className="flex flex-col mt-10 w-full ml-3 text-black text-left whitespace-nowrap">
       <div className="flex flex-row gap-4">
@@ -9,7 +13,7 @@ function SkillsSection() {
         </h2>
         <button
             className="border-2 border-gray-300 w-30 h-12 rounded-2xl px-4 py-2 font-normal text-[20px]"
-            onClick={() => selectFreelancer(id)}
+            onClick={onAbrir}
         >
             Editar
         </button>
@@ -22,5 +26,3 @@ function SkillsSection() {
     </section>
   );
 }
-
-export default SkillsSection;
